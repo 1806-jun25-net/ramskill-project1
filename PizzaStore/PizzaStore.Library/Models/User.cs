@@ -17,5 +17,10 @@ namespace PizzaStore.Library.Models
         List<Order> userOrderHistory { get; set; }
 
         int[] favPizza { get; set; }
+
+        public string LogIn()
+        {
+            throw new NotImplementedException(); 
+        }
     }
 }

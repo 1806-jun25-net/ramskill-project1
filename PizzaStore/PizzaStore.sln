@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Library", "PizzaStore.Library\PizzaStore.Library.csproj", "{13E83806-F1A7-48CA-8755-48DA2F925295}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Library", "PizzaStore.Library\PizzaStore.Library.csproj", "{13E83806-F1A7-48CA-8755-48DA2F925295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Console", "PizzaStore.Console\PizzaStore.Console.csproj", "{7E53E11D-4E22-4E3F-BC00-6EB0D8F439B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.UI", "PizzaStore.Console\PizzaStore.UI.csproj", "{7E53E11D-4E22-4E3F-BC00-6EB0D8F439B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Test", "PizzaStore.Test\PizzaStore.Test.csproj", "{E260E560-18FB-45DA-B5A9-3563D8F5EE5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Test", "PizzaStore.Test\PizzaStore.Test.csproj", "{E260E560-18FB-45DA-B5A9-3563D8F5EE5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

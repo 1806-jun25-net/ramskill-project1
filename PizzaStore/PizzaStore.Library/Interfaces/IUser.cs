@@ -11,6 +11,6 @@ namespace PizzaStore.Library.Interfaces
         string lastName { get; set; }
         string favLocation { get; set; }
 
-        
+        string LogIn();
     }
 }
