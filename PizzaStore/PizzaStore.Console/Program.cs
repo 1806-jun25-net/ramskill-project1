@@ -6,59 +6,105 @@ namespace PizzaStore.UI
 {
      public class Program
     {
-
-        static string WelcomeMessage()
+        static void WelcomeMessage()
         {
-            string userName;
-
-            Console.WriteLine("Welcome! Please sign in to place an order.\nName: ");
-            userName = Console.ReadLine();
-
-            Console.WriteLine($"Welcome {userName}. Thank you for choosing Checker's Pizza.");
-
-            return userName; 
+            Console.WriteLine("Welcome! Please sign in to place an order.");
         }
 
-        static string LocationPicker()
+        static bool QuitApp()
         {
-            string location;
-
-            Console.WriteLine("Thank you {userName}. Please select a loction to order from.\n1. Ashburn\n2. Leesburg\n3. Sterling\n4. Reston");
-            location = Console.ReadLine();
-            location = location.ToLower();
-
-            if (location != "1" && location != "2" && location != "3" && location != "4" && 
-                location != "ashburn" && location != "leesburg" && location != "sterling" && location != "reston")
+            string quitSelect;
+            Console.WriteLine("Are you sure you want to quit? If you have not checked out, your order will be lost.");
+            quitSelect = Console.ReadLine();
+            quitSelect = quitSelect.ToLower();
+            bool quit = false;
+            if (quitSelect == "yes" || quitSelect == "y")
             {
-                do
-                {
-                    Console.WriteLine("Please select an option from the menu.");
-                    location = Console.ReadLine();
-                    location = location.ToLower();
-                } while (location != "1" && location != "2" && location != "3" && location != "4" && 
-                        location != "ashburn" && location != "leesburg" && location != "sterling" && location != "reston");
-                
+                quit = true;
             }
-            return location;
+            return quit;
         }
 
         public static void Main(string[] args)
         {
+            WelcomeMessage();
+            //take user name and location of order
+            var user = new User();
+            user.ChangeName();
+            user.ChangeLocation();
             
-            string userName = WelcomeMessage();
-            string favLocation = LocationPicker();
+            //create order to add to as the user navigates the menues
+            Order order = new Order(user.firstName, user.lastName, user.favLocation);
 
-            Order order = new Order(userName, favLocation);
+        /***************************************************************
+        goto point for returning to menu
+        ****************************************************************/
+        returnToMenu:
 
-            string menuSelect = null;
-            menuSelect = order.mainMenu();
+            string menuInput = order.mainMenu();
+            bool quit = false;
 
+            switch(menuInput)
+            {
+                case "1":
+                    //add pizza
+                    var pizza = new Pizza();
+                    string pickPizza = pizza.AddPizza();
+                    string thePizza;
+                    if (pickPizza == "classic")
+                    {
+                        thePizza = pizza.AddClassicPizza();
+                    }
+                    else if (pickPizza == "custom")
+                    {
+                        thePizza = pizza.AddCustomPizza();
+                    }
+                    else
+                    {
+                        goto returnToMenu;
+                    }
+                    break;
+                case "2":
+                    //view order
+                    Console.WriteLine("Not Implemented");
+                    break;
+                case "3":
+                    //checkout - needs further implementation after DB is made
+                    quit = order.Checkout();
+                    break;
+                case "4":
+                    //change user
+                    user.ChangeName();
+                    break;
+                case "5":
+                    //change location
+                    user.ChangeLocation();
+                    break;
+                case "6":
+                    //quit app
+                    quit = QuitApp();
+                    if (quit == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        goto returnToMenu;
+                    }
+                default:
+                    goto returnToMenu;
 
+            }
 
-
-
+            //return to menue is checkout is false
+            if (quit == false)
+            {
+                goto returnToMenu;
+            }
+            
+            System.Environment.Exit(1);
 
         }//end main
-    }//end class
-}//end namespace
+    }
+}
 

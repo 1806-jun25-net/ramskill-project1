@@ -1,4 +1,5 @@
 ﻿using PizzaStore.Library.Interfaces;
+using PizzaStore.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,16 +10,17 @@ namespace PizzaStore.Library.Models
     {
 
 
-        public Order(string orderUser, string orderLocation)
+        public Order(string firstName, string lastName, string orderLocation)
         {
 
         }
 
         public string orderLocation { get; set; }
         public string orderUser { get; set; }
+        private double total = 0;
         
 
-        public void CreateOrder(string userName, string location)
+        public void CreateOrder(string firstName,string lastName, string location)
         {
             mainMenu();
         }
@@ -27,117 +29,47 @@ namespace PizzaStore.Library.Models
         {
             string menuSelect;
 
-            Console.WriteLine($"Please select an option from the menu to contine.\n1. Add Pizza\n2. View order\n3. Checkout\n4. Change user\n5. Change location\n6. Quit Application");
-            menuSelect = Console.ReadLine();
-            menuSelect = menuSelect.ToLower();
-
-            switch(menuSelect)
+            //loop through menu till user selects a valid option
+            do
             {
-                case "1":
-                    AddPizza();
-                    break;
+                Console.WriteLine($"Please select an option from the menu to contine.\n1. Add Pizza\n2. View order\n3. Checkout\n4. Change user\n5. Change location\n6. Quit Application");
+                menuSelect = Console.ReadLine();
+                menuSelect = menuSelect.ToLower();
 
-                case "2":
-                    ViewOrder();
-                    break;
+                //if user doesn't select a valid option, display error message and loop
+                if (menuSelect != "1" && menuSelect != "2" && menuSelect != "3" &&
+                menuSelect != "4" && menuSelect != "5" && menuSelect != "6")
+                {
+                    Console.WriteLine("Not a valid input");
+                }
 
-                case "3":
-                    Checkout();
-                    break;
-
-                case "4":
-                    ChangeUser();
-                    break;
-
-                case "5":
-                    ChangeLocation();
-                    break;
-
-                case "6":
-                    QuitApp();
-                    break;
-
-                default:
-                    mainMenu();
-                    break;
-            }
-                 
-
+            } while (menuSelect != "1" && menuSelect != "2" && menuSelect != "3" &&
+                menuSelect != "4" && menuSelect != "5" && menuSelect != "6");
+                        
             return menuSelect;
         }
 
-        public void AddPizza()
-        {
-            string menuSelect = null;
-
-            Console.WriteLine("1. Add Classic Pizza\n2. Add Custom Pizza\n3. Main Menu");
-            menuSelect = Console.ReadLine();
-            menuSelect = menuSelect.ToLower();
-
-            if (menuSelect == "1" || menuSelect == "classic")
-            {
-                AddClassicPizza();
-            }
-            else if (menuSelect == "2" || menuSelect == "custom")
-            {
-                AddCustomPizza();
-            }
-            else if (menuSelect == "3" || menuSelect == "menu" || menuSelect == "main menu")
-            {
-                mainMenu();
-            }
-            else
-            {
-                Console.WriteLine("Please selct a pizza to add.\n");
-                AddPizza();
-            }
-
-        }
-
-        public void AddClassicPizza()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddCustomPizza()
-        {
-            throw new NotImplementedException();
-        }
 
         public void ViewOrder()
         {
             throw new NotImplementedException();
         }
 
-        public void Checkout()
+        public bool Checkout()
         {
-            throw new NotImplementedException();
-        }
+            Console.WriteLine($"You're total is ${total}. Would you like to checkout?");
+            string input = Console.ReadLine();
+            input = input.ToLower();
 
-        public string ChangeUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string ChangeLocation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void QuitApp()
-        {
-            string quitSelect;
-            Console.WriteLine("Are you sure you want to quit? If you have not checked out, your order will be lost.");
-            quitSelect = Console.ReadLine();
-            quitSelect = quitSelect.ToLower();
-            if (quitSelect == "yes" || quitSelect == "y")
+            bool quit = false;
+            if (input == "yes")
             {
-                System.Environment.Exit(1);
+                Console.WriteLine("Thank you for your business. Application will now close.");
+                quit = true;
+                Console.ReadLine();
             }
-            else
-            {
-                mainMenu();
-            }
+
+            return quit;
         }
 
     }
