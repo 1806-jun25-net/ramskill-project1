@@ -8,17 +8,14 @@ namespace PizzaStore.Library.Models
 {
     public class Order
     {
-
+        public string orderLocation { get; set; }
+        public string orderUser { get; set; }
+        private double total = 0;
 
         public Order(string firstName, string lastName, string orderLocation)
         {
 
         }
-
-        public string orderLocation { get; set; }
-        public string orderUser { get; set; }
-        private double total = 0;
-        
 
         public void CreateOrder(string firstName,string lastName, string location)
         {
@@ -49,7 +46,6 @@ namespace PizzaStore.Library.Models
             return menuSelect;
         }
 
-
         public void ViewOrder()
         {
             throw new NotImplementedException();
@@ -73,8 +69,4 @@ namespace PizzaStore.Library.Models
         }
 
     }
-
-
-
-    
 }

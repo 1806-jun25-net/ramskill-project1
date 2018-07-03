@@ -50,14 +50,14 @@ namespace PizzaStore.UI
                     //add pizza
                     var pizza = new Pizza();
                     string pickPizza = pizza.AddPizza();
-                    string thePizza;
+                    
                     if (pickPizza == "classic")
                     {
-                        thePizza = pizza.AddClassicPizza();
+                        pizza.AddClassicPizza();
                     }
                     else if (pickPizza == "custom")
                     {
-                        thePizza = pizza.AddCustomPizza();
+                        pizza.AddCustomPizza();
                     }
                     else
                     {

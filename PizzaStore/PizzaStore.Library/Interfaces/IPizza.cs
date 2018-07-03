@@ -4,7 +4,9 @@ using System.Text;
 
 namespace PizzaStore.Library.Interfaces
 {
-    interface IPizza
+    public interface IPizza
     {
+        string crust { get; set; }
+        List<string> toppings { get; set; }
     }
 }

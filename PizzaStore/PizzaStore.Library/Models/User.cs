@@ -11,12 +11,8 @@ namespace PizzaStore.Library.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string favLocation { get; set; }
-        
-        
-
-        List<Order> userOrderHistory { get; set; }
-
         int[] favPizza { get; set; }
+        List<Order> userOrderHistory { get; set; }
 
         public string LogIn()
         {
