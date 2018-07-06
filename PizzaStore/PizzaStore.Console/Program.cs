@@ -1,6 +1,9 @@
-﻿using PizzaStore.Library.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using PizzaStore.Library.Models;
+using PizzaStore.Data;
 using System;
-
+using System.IO;
 
 namespace PizzaStore.UI
 {
@@ -27,6 +30,17 @@ namespace PizzaStore.UI
 
         public static void Main(string[] args)
         {
+            //get configuration from file
+            var configBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = configBuilder.Build();
+
+            // provide the connection string to the dbcontext 
+            var optionsBuilder = new DbContextOptionsBuilder<PizzaStoreDBContext>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("PizzaStoreDB"));
+
             WelcomeMessage();
             //take user name and location of order
             var user = new User();
