@@ -9,9 +9,10 @@ namespace PizzaStore.UI
 {
      public class Program
     {
-        static void WelcomeMessage()
+        static void SignIn()
         {
             Console.WriteLine("Welcome! Please sign in to place an order.");
+
         }
 
         static bool QuitApp()
@@ -41,7 +42,7 @@ namespace PizzaStore.UI
             var optionsBuilder = new DbContextOptionsBuilder<PizzaStoreDBContext>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("PizzaStoreDB"));
 
-            WelcomeMessage();
+            SignIn();
             //take user name and location of order
             var user = new User();
             user.ChangeName();
@@ -50,10 +51,6 @@ namespace PizzaStore.UI
             //create order to add to as the user navigates the menues
             Order order = new Order(user.firstName, user.lastName, user.favLocation);
 
-        /***************************************************************
-        goto point for returning to menu
-        ****************************************************************/
-        returnToMenu:
 
             string menuInput = order.mainMenu();
             bool quit = false;
