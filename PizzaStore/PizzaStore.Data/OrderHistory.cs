@@ -5,11 +5,6 @@ namespace PizzaStore.Data
 {
     public partial class OrderHistory
     {
-        public OrderHistory()
-        {
-            Pizza = new HashSet<Pizza>();
-        }
-
         public int Id { get; set; }
         public DateTime Dt { get; set; }
         public int LocationId { get; set; }
@@ -40,6 +35,5 @@ namespace PizzaStore.Data
         public Pizza Pizza7 { get; set; }
         public Pizza Pizza8 { get; set; }
         public Pizza Pizza9 { get; set; }
-        public ICollection<Pizza> Pizza { get; set; }
     }
 }

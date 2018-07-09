@@ -8,13 +8,18 @@ namespace PizzaStore.Library.Models
 {
     public class Order
     {
-        public string orderLocation { get; set; }
-        public string orderUser { get; set; }
+        public int orderLocation { get; set; }
+        public int orderCustomerID { get; set; }
         private double total = 0;
 
         public Order(string firstName, string lastName, string orderLocation)
         {
 
+        }
+
+        public Order(int orderCustomerID)
+        {
+            this.orderCustomerID = orderCustomerID;
         }
 
         public void CreateOrder(string firstName,string lastName, string location)

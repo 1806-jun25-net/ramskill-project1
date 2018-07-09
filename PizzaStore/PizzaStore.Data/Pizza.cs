@@ -22,31 +22,10 @@ namespace PizzaStore.Data
         }
 
         public int Id { get; set; }
-        public int OrderId { get; set; }
         public string Size { get; set; }
-        public decimal Cost { get; set; }
-        public int? Topping1Id { get; set; }
-        public int? Topping2Id { get; set; }
-        public int? Topping3Id { get; set; }
-        public int? Topping4Id { get; set; }
-        public int? Topping5Id { get; set; }
-        public int? Topping6Id { get; set; }
-        public int? Topping7Id { get; set; }
-        public int? Topping8Id { get; set; }
-        public int? Topping9Id { get; set; }
-        public int? Topping10Id { get; set; }
+        public decimal? Cost { get; set; }
+        public string Name { get; set; }
 
-        public OrderHistory Order { get; set; }
-        public Topping Topping1 { get; set; }
-        public Topping Topping10 { get; set; }
-        public Topping Topping2 { get; set; }
-        public Topping Topping3 { get; set; }
-        public Topping Topping4 { get; set; }
-        public Topping Topping5 { get; set; }
-        public Topping Topping6 { get; set; }
-        public Topping Topping7 { get; set; }
-        public Topping Topping8 { get; set; }
-        public Topping Topping9 { get; set; }
         public ICollection<OrderHistory> OrderHistoryPizza1 { get; set; }
         public ICollection<OrderHistory> OrderHistoryPizza10 { get; set; }
         public ICollection<OrderHistory> OrderHistoryPizza11 { get; set; }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace PizzaStore.Data
 {
@@ -22,19 +20,12 @@ namespace PizzaStore.Data
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<OrderHistory> OrderHistory { get; set; }
         public virtual DbSet<Pizza> Pizza { get; set; }
-        public virtual DbSet<Topping> Topping { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
             }
-
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            //                optionsBuilder.UseSqlServer("Server=tcp:ramskill-1806.database.windows.net,1433;Initial Catalog=PizzaStoreDB;Persist Security Info=False;User ID=nephesh;Password=9D2ziE79;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            //            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -201,112 +192,13 @@ namespace PizzaStore.Data
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Cost).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.Size)
-                    .IsRequired()
-                    .HasMaxLength(1);
-
-                entity.Property(e => e.Topping10Id).HasColumnName("Topping10ID");
-
-                entity.Property(e => e.Topping1Id).HasColumnName("Topping1ID");
-
-                entity.Property(e => e.Topping2Id).HasColumnName("Topping2ID");
-
-                entity.Property(e => e.Topping3Id).HasColumnName("Topping3ID");
-
-                entity.Property(e => e.Topping4Id).HasColumnName("Topping4ID");
-
-                entity.Property(e => e.Topping5Id).HasColumnName("Topping5ID");
-
-                entity.Property(e => e.Topping6Id).HasColumnName("Topping6ID");
-
-                entity.Property(e => e.Topping7Id).HasColumnName("Topping7ID");
-
-                entity.Property(e => e.Topping8Id).HasColumnName("Topping8ID");
-
-                entity.Property(e => e.Topping9Id).HasColumnName("Topping9ID");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Pizza)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PizzaOrder");
-
-                entity.HasOne(d => d.Topping10)
-                    .WithMany(p => p.PizzaTopping10)
-                    .HasForeignKey(d => d.Topping10Id)
-                    .HasConstraintName("FK_PizzaTopping10");
-
-                entity.HasOne(d => d.Topping1)
-                    .WithMany(p => p.PizzaTopping1)
-                    .HasForeignKey(d => d.Topping1Id)
-                    .HasConstraintName("FK_PizzaTopping1");
-
-                entity.HasOne(d => d.Topping2)
-                    .WithMany(p => p.PizzaTopping2)
-                    .HasForeignKey(d => d.Topping2Id)
-                    .HasConstraintName("FK_PizzaTopping2");
-
-                entity.HasOne(d => d.Topping3)
-                    .WithMany(p => p.PizzaTopping3)
-                    .HasForeignKey(d => d.Topping3Id)
-                    .HasConstraintName("FK_PizzaTopping3");
-
-                entity.HasOne(d => d.Topping4)
-                    .WithMany(p => p.PizzaTopping4)
-                    .HasForeignKey(d => d.Topping4Id)
-                    .HasConstraintName("FK_PizzaTopping4");
-
-                entity.HasOne(d => d.Topping5)
-                    .WithMany(p => p.PizzaTopping5)
-                    .HasForeignKey(d => d.Topping5Id)
-                    .HasConstraintName("FK_PizzaTopping5");
-
-                entity.HasOne(d => d.Topping6)
-                    .WithMany(p => p.PizzaTopping6)
-                    .HasForeignKey(d => d.Topping6Id)
-                    .HasConstraintName("FK_PizzaTopping6");
-
-                entity.HasOne(d => d.Topping7)
-                    .WithMany(p => p.PizzaTopping7)
-                    .HasForeignKey(d => d.Topping7Id)
-                    .HasConstraintName("FK_PizzaTopping7");
-
-                entity.HasOne(d => d.Topping8)
-                    .WithMany(p => p.PizzaTopping8)
-                    .HasForeignKey(d => d.Topping8Id)
-                    .HasConstraintName("FK_PizzaTopping8");
-
-                entity.HasOne(d => d.Topping9)
-                    .WithMany(p => p.PizzaTopping9)
-                    .HasForeignKey(d => d.Topping9Id)
-                    .HasConstraintName("FK_PizzaTopping9");
-            });
-
-            modelBuilder.Entity<Topping>(entity =>
-            {
-                entity.ToTable("Topping", "StoreOps");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CostLg)
-                    .HasColumnName("CostLG")
-                    .HasColumnType("decimal(16, 2)");
-
-                entity.Property(e => e.CostMd)
-                    .HasColumnName("CostMD")
-                    .HasColumnType("decimal(16, 2)");
-
-                entity.Property(e => e.CostSm)
-                    .HasColumnName("CostSM")
-                    .HasColumnType("decimal(16, 2)");
+                entity.Property(e => e.Cost).HasColumnType("decimal(16, 2)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(128);
+
+                entity.Property(e => e.Size).HasMaxLength(128);
             });
         }
     }

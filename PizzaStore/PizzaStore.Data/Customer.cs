@@ -5,6 +5,20 @@ namespace PizzaStore.Data
 {
     public partial class Customer
     {
+        public Customer()
+        {
+            FirstName = "(empty)";
+            LastName = "(empty)";
+        }
+
+        public Customer(string firstName, string lastName, string userName, string password)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            Password = password;
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,5 +28,7 @@ namespace PizzaStore.Data
         public int Admin { get; set; }
 
         public Location FavoriteLocation { get; set; }
+
+
     }
 }
