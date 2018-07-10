@@ -98,13 +98,15 @@ namespace PizzaStore.Console
                     //set orderLocation and/or update customer's favorite location if empty
 
                     //if customer has not set a favorite location
-                    if (customer.FavoriteLocationId != null)//change back to == after debugging
+                    if (customer.FavoriteLocationId != null)//change to != from == to debug
                     {
                         //get locations
                         while(true)
                         {
                             System.Console.WriteLine("What location would you like to order from?");
                             DisplayLocations(dbContext);
+                            //remake dbContext after disposal
+                            dbContext = new PizzaStoreDBContext(options);
                             string locInputStr = System.Console.ReadLine();
                             //try converting string to int or display error message
                             try
@@ -115,10 +117,12 @@ namespace PizzaStore.Console
                                 //if checks if locInputInt matches a locationID in the DB
                                 if (dbContext.Location.Any(o => o.Id == locInputInt))
                                 {
-                                    customer.FavoriteLocationId = locInputInt;
-                                    dbContext.SaveChanges();
-                                    order.orderLocation = locInputInt;
+                                    customerRepository.UpdateFavoriteLocation(customer, locInputInt);
                                     break;
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("That location doesn't exist. Please try again.");
                                 }
                                 
                             }
@@ -138,7 +142,15 @@ namespace PizzaStore.Console
                         System.Console.WriteLine($"Ordering from {location.Name}");
                         System.Console.WriteLine("To select a different location, enter \"1\".");
                         System.Console.WriteLine("Otherwise, press any key to continue.");
+                        string locInput = System.Console.ReadLine();
+                        if (locInput == "1")
+                        {
+                            System.Console.WriteLine("Select a location to place your order:");
+                            DisplayLocations(dbContext);
+                            locInput = System.Console.ReadLine();
 
+
+                        }
                     }
                     
                 }

@@ -86,7 +86,6 @@ namespace PizzaStore.Library.Models
                 catch
                 {
                     Console.WriteLine("Error communicating with database. Please try again later.");
-                    System.Console.ReadLine();
                 }
             }
 
@@ -134,6 +133,23 @@ namespace PizzaStore.Library.Models
 
             Customer customerInfo = _db.Customer.First(u => u.UserName == userName && u.Password == password);
             return customerInfo;
+        }
+
+        public Customer UpdateFavoriteLocation(Customer customer, int newLocationId)
+        {
+            customer.FavoriteLocationId = newLocationId;
+            _db.Customer.Update(customer);
+            _db.SaveChanges();
+            try
+            {
+                _db.Customer.Update(customer);
+                _db.SaveChanges();
+            }
+            catch
+            {
+                Console.WriteLine("Error communicating with database. Please try again later.");
+            }
+            return customer;
         }
         
 
