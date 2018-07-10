@@ -142,7 +142,7 @@ namespace PizzaStore.Library.Models
             _db.SaveChanges();
             try
             {
-                _db.Customer.Update(customer);
+                _db.Entry(customer);
                 _db.SaveChanges();
             }
             catch
