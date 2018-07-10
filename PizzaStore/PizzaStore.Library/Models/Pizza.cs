@@ -4,8 +4,8 @@ using System.Text;
 
 namespace PizzaStore.Library.Models
 {
-    class CreateOrder
+    class Pizza
     {
-
+        
     }
 }

@@ -11,7 +11,7 @@ namespace PizzaStore.Console
     class Program
     {
 
-        public static Customer LoginPrompt(CustomerRepository customerRepository, Customer customer)
+        public static CustomerRepository LoginPrompt(CustomerRepository customer, PizzaStoreDBContext dbContext)
         {
             System.Console.WriteLine("1. Sign in");
             System.Console.WriteLine("2. Create new account");
@@ -27,20 +27,31 @@ namespace PizzaStore.Console
 
             if (signInInput == "1")
             {
-                customer = customerRepository.SignIn();
+                customer = customer.SignIn(dbContext);
             }
             else if (signInInput == "2")
             {
-                customer = customerRepository.NewUser();
+                customer = customer.NewUser(dbContext);
             }
             return customer;
         }
 
-        public static void DisplayLocations(PizzaStoreDBContext DBContext)
+        public static void DisplayLocations(PizzaStoreDBContext dbContext)
         {
-            using (DBContext)
+            using (dbContext)
             {
-                foreach (var item in DBContext.Location)
+                foreach (var item in dbContext.Location)
+                {
+                    System.Console.WriteLine($"{item.Id}. {item.Name}");
+                }
+            }
+        }
+
+        public static void DisplayPizzas(PizzaStoreDBContext dbContext)
+        {
+            using (dbContext)
+            {
+                foreach (var item in dbContext.Pizza)
                 {
                     System.Console.WriteLine($"{item.Id}. {item.Name}");
                 }
@@ -71,21 +82,21 @@ namespace PizzaStore.Console
             //user sign in or create account. 
             System.Console.WriteLine("Please sign in to continue:");
 
-            Customer customer = new Customer();
-            customer = LoginPrompt(customerRepository, customer);
+            CustomerRepository customer = new CustomerRepository();
+            customer = LoginPrompt(customer, dbContext);
 
             //create order object
-            Order order = new Order(customer.Id);
+            Library.Models.Order order = new Library.Models.Order(customer.id);
 
             /**********************************************
              * This is the beginning of the menu
              * *******************************************/
             while (true)
             {
-                System.Console.WriteLine($"Welcome {customer.FirstName} {customer.LastName}.");
+                System.Console.WriteLine($"Welcome {customer.firstName} {customer.lastName}.");
                 System.Console.WriteLine("Please select a valid option from the menu.");
                 //if the customer is an admit, display additional menu options
-                if (customer.Admin == 1)
+                if (customer.admin == 1)
                 {
                     System.Console.WriteLine("Admin: View Admin Menu");
                 }
@@ -98,7 +109,7 @@ namespace PizzaStore.Console
                     //set orderLocation and/or update customer's favorite location if empty
 
                     //if customer has not set a favorite location
-                    if (customer.FavoriteLocationId != null)//change to != from == to debug
+                    if (customer.favoriteLocationId == 0)//change to != from == to debug
                     {
                         //get locations
                         while(true)
@@ -107,28 +118,36 @@ namespace PizzaStore.Console
                             DisplayLocations(dbContext);
                             //remake dbContext after disposal
                             dbContext = new PizzaStoreDBContext(options);
-                            string locInputStr = System.Console.ReadLine();
-                            //try converting string to int or display error message
-                            try
-                            {
-                                int locInputInt = Convert.ToInt32(locInputStr);
-                                //add location to Customer.FavoriteLocationId && add location to order.LocationId
+                            //initialize locInputInt for later
+                            int locInputInt;
 
-                                //if checks if locInputInt matches a locationID in the DB
-                                if (dbContext.Location.Any(o => o.Id == locInputInt))
+                            //loop until user put in valid location ID
+                            while(true)
+                            {
+                                string locInputStr = System.Console.ReadLine();
+                                //try converting string to int or display error message
+                                try
                                 {
-                                    customerRepository.UpdateFavoriteLocation(customer, locInputInt);
+                                    locInputInt = Convert.ToInt32(locInputStr);
                                     break;
                                 }
-                                else
+                                catch
                                 {
-                                    System.Console.WriteLine("That location doesn't exist. Please try again.");
+                                    System.Console.WriteLine("Invalid input.");
                                 }
-                                
                             }
-                            catch
+
+                            //add location to Customer.FavoriteLocationId && add location to order.LocationId
+
+                            //checks if locInputInt matches a locationID in the DB
+                            if (dbContext.Location.Any(o => o.Id == locInputInt))
                             {
-                                System.Console.WriteLine("Invalid input.");
+                                customerRepository.UpdateFavoriteLocation(customer, locInputInt, dbContext);
+                                break;
+                            }
+                            else
+                            {
+                                System.Console.WriteLine("That location doesn't exist. Please try again.");
                             }
                         }
                         
@@ -137,8 +156,8 @@ namespace PizzaStore.Console
                     else
                     {
                         //set order location and inform customer of their default location
-                        order.orderLocation = customer.FavoriteLocationId.GetValueOrDefault();
-                        Location location = locationRepository.GetLocation(customer.FavoriteLocationId.GetValueOrDefault());
+                        order.LocationId = customer.favoriteLocationId;
+                        Location location = locationRepository.GetLocation(customer.favoriteLocationId);
                         System.Console.WriteLine($"Ordering from {location.Name}");
                         System.Console.WriteLine("To select a different location, enter \"1\".");
                         System.Console.WriteLine("Otherwise, press any key to continue.");
@@ -146,8 +165,67 @@ namespace PizzaStore.Console
                         if (locInput == "1")
                         {
                             System.Console.WriteLine("Select a location to place your order:");
+
+                            //display locations and replace the disposed dbContext object
                             DisplayLocations(dbContext);
-                            locInput = System.Console.ReadLine();
+                            dbContext = new PizzaStoreDBContext(options);
+
+                            int locInputInt;
+                            //loop until user put in valid location ID
+                            while (true)
+                            {
+                                string locInputStr = System.Console.ReadLine();
+                                //try converting string to int or display error message
+                                try
+                                {
+                                    locInputInt = Convert.ToInt32(locInputStr);
+                                    break;
+                                }
+                                catch
+                                {
+                                    System.Console.WriteLine("Invalid input.");
+                                }
+                            }
+                            //have CustomerID, OrderLocation, and OrderID(identity), need at least 1 pizza
+
+                            //display pizzas and initialize new dbContext
+                            int pizzaInputInt;
+                            while (true)
+                            {
+                                System.Console.WriteLine("Select a pizza to order:");
+                                DisplayPizzas(dbContext);
+                                dbContext = new PizzaStoreDBContext(options);
+                                string pizzaInputStr = System.Console.ReadLine();
+
+                                //try converting string to int
+                                while (true)
+                                {
+                                    
+                                    try
+                                    {
+                                        pizzaInputInt = Convert.ToInt32(pizzaInputStr);
+                                        break;
+                                    }
+                                    catch
+                                    {
+                                        System.Console.WriteLine("Invalid input.");
+                                    }
+                                }
+                                
+                                //check if input pizzaId exists in DB
+                                if (dbContext.Pizza.Any(o => o.Id == pizzaInputInt))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("That location doesn't exist. Please try again.");
+                                }
+                            }
+                            int pizzaCount = 1;
+                            order = Order.AddPizza(order, pizzaInputInt, pizzaCount);
+
+
 
 
                         }
@@ -156,7 +234,7 @@ namespace PizzaStore.Console
                 }
                 else if (input == "2")
                 {
-                    customer = LoginPrompt(customerRepository, customer);
+                    customer = LoginPrompt(customer, dbContext);
                 }
                 else if (input == "3")
                 {
@@ -170,7 +248,7 @@ namespace PizzaStore.Console
                 }
                 else if (input == "admin")
                 {
-                    if (customer.Admin == 1)
+                    if (customer.admin == 1)
                     {
                         System.Console.WriteLine("You're an administrator!");
                         System.Console.ReadLine();

@@ -21,6 +21,7 @@ namespace PizzaStore.Data
         public int? Pizza10Id { get; set; }
         public int? Pizza11Id { get; set; }
         public int? Pizza12Id { get; set; }
+        public int CustomerId { get; set; }
 
         public Location Location { get; set; }
         public Pizza Pizza1 { get; set; }
@@ -35,5 +36,6 @@ namespace PizzaStore.Data
         public Pizza Pizza7 { get; set; }
         public Pizza Pizza8 { get; set; }
         public Pizza Pizza9 { get; set; }
+        public Customer CustomerID { get; set; }
     }
 }

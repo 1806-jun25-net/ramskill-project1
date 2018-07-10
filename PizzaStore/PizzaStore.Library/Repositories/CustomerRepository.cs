@@ -9,6 +9,15 @@ namespace PizzaStore.Library.Models
 {
     public class CustomerRepository
     {
+
+        public int id;
+        public string firstName;
+        public string lastName;
+        public string userName;
+        public string password;
+        public int favoriteLocationId;
+        public int admin;
+
         private PizzaStoreDBContext _db;
 
         public CustomerRepository(string firstName, string lastName, string ID)
@@ -19,7 +28,12 @@ namespace PizzaStore.Library.Models
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
-        public Customer NewUser()
+
+        public CustomerRepository()
+        {
+        }
+
+        public CustomerRepository NewUser(PizzaStoreDBContext dbContext)
         {
             string userName;
             string password;
@@ -79,8 +93,8 @@ namespace PizzaStore.Library.Models
 
                 try
                 {
-                    _db.Customer.Add(customer);
-                    _db.SaveChanges();
+                    dbContext.Customer.Add(customer);
+                    dbContext.SaveChanges();
                     break;
                 }
                 catch
@@ -89,13 +103,14 @@ namespace PizzaStore.Library.Models
                 }
             }
 
-            Customer customerInfo = _db.Customer.First(u => u.UserName == userName && u.Password == password);
+            CustomerRepository customerInfo = CustomerRepository.DBContextToObj(dbContext.Customer.First(u => u.UserName == userName && u.Password == password));
             return customerInfo;
         }
-        public Customer SignIn()
+        public CustomerRepository SignIn(PizzaStoreDBContext dbContext)
         {
             string userName;
             string password;
+            
             
             while(true)
             {
@@ -119,9 +134,10 @@ namespace PizzaStore.Library.Models
                     }
                 } while (password.Length == 0);
                 
+                
                 try
                 {
-                    var customer = _db.Customer.First(u => u.UserName == userName && u.Password == password).ToString();
+                    var customer = dbContext.Customer.First(u => u.UserName == userName && u.Password == password).ToString();
                     break;
                 }
                 catch
@@ -131,27 +147,50 @@ namespace PizzaStore.Library.Models
 
             }
 
-            Customer customerInfo = _db.Customer.First(u => u.UserName == userName && u.Password == password);
-            return customerInfo;
+            Customer customerInfo = dbContext.Customer.First(u => u.UserName == userName && u.Password == password);
+            CustomerRepository customerObj = DBContextToObj(customerInfo);
+            return customerObj;
         }
 
-        public Customer UpdateFavoriteLocation(Customer customer, int newLocationId)
+        public void UpdateFavoriteLocation(CustomerRepository customer, int newLocationId,PizzaStoreDBContext dbContext)
         {
-            customer.FavoriteLocationId = newLocationId;
-            _db.Customer.Update(customer);
-            _db.SaveChanges();
-            try
-            {
-                _db.Entry(customer);
-                _db.SaveChanges();
-            }
-            catch
-            {
-                Console.WriteLine("Error communicating with database. Please try again later.");
-            }
-            return customer;
+            customer.favoriteLocationId = newLocationId;
+            
+            dbContext.Entry(dbContext.Customer.Find(customer.favoriteLocationId)).CurrentValues.SetValues(ObjToDBContext(customer));
+            dbContext.SaveChanges();
+
+            //try
+            //{
+            //    //_db.Entry(_db.Review.Find(restaurant.Id)).CurrentValues.SetValues(Mapper.Map(restaurant));
+            //    dbContext.Entry(_db.Customer.Find(customer.favoriteLocationId)).CurrentValues.SetValues(ObjToDBContext(customer));
+            //    dbContext.SaveChanges();
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error communicating with database. Please try again later.");
+            //}
+
         }
-        
+
+        public static Customer ObjToDBContext(CustomerRepository customer) => new Customer
+        {
+            FirstName = customer.firstName,
+            LastName = customer.lastName,
+            UserName = customer.userName,
+            Password = customer.password,
+            FavoriteLocationId = customer.favoriteLocationId
+        };
+
+        public static CustomerRepository DBContextToObj(Customer customer) => new CustomerRepository
+        {
+            id = customer.Id,
+            firstName = customer.FirstName,
+            lastName = customer.LastName,
+            userName = customer.UserName,
+            password = customer.Password,
+            favoriteLocationId = customer.FavoriteLocationId.GetValueOrDefault(),
+        };
+
 
 
     }//end class

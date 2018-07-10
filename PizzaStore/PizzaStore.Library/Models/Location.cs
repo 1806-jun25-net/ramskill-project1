@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PizzaStore.Library.Models
 {
-    class CreatePizza
+    class Location
     {
+
     }
 }
