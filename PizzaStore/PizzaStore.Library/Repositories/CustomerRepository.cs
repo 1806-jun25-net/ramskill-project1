@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PizzaStore.Data;
+using PizzaStore.Library.Repositories;
 
 namespace PizzaStore.Library.Models
 {
@@ -152,35 +153,41 @@ namespace PizzaStore.Library.Models
             return customerObj;
         }
 
+        public static void DisplayOrderHistory(PizzaStoreDBContext dbContext, CustomerRepository customer)
+        {
+            using (dbContext)
+            {
+                foreach (var item in dbContext.OrderHistory)
+                {
+                    if(item.CustomerId == customer.id)
+                    {
+                        Order order = OrderRepository.DBContextToObject(item);
+                        order.DisplayOrder(dbContext, order);
+                    }
+                }
+            }
+        }
+
         public void UpdateFavoriteLocation(CustomerRepository customer, int newLocationId,PizzaStoreDBContext dbContext)
         {
             customer.favoriteLocationId = newLocationId;
-            
-            dbContext.Entry(dbContext.Customer.Find(customer.favoriteLocationId)).CurrentValues.SetValues(ObjToDBContext(customer));
+
+            var currObj = dbContext.Customer.Find(customer.id);
+            var newObj = ObjToDBContext(customer);
+
+            dbContext.Entry(currObj).CurrentValues.SetValues(newObj);
             dbContext.SaveChanges();
-
-            //try
-            //{
-            //    //_db.Entry(_db.Review.Find(restaurant.Id)).CurrentValues.SetValues(Mapper.Map(restaurant));
-            //    dbContext.Entry(_db.Customer.Find(customer.favoriteLocationId)).CurrentValues.SetValues(ObjToDBContext(customer));
-            //    dbContext.SaveChanges();
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Error communicating with database. Please try again later.");
-            //}
-
         }
 
         public static Customer ObjToDBContext(CustomerRepository customer) => new Customer
         {
+            Id = customer.id,
             FirstName = customer.firstName,
             LastName = customer.lastName,
             UserName = customer.userName,
             Password = customer.password,
             FavoriteLocationId = customer.favoriteLocationId
         };
-
         public static CustomerRepository DBContextToObj(Customer customer) => new CustomerRepository
         {
             id = customer.Id,
@@ -190,6 +197,8 @@ namespace PizzaStore.Library.Models
             password = customer.Password,
             favoriteLocationId = customer.FavoriteLocationId.GetValueOrDefault(),
         };
+
+
 
 
 

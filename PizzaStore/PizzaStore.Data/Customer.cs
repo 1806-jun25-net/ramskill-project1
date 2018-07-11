@@ -7,8 +7,7 @@ namespace PizzaStore.Data
     {
         public Customer()
         {
-            FirstName = "(empty)";
-            LastName = "(empty)";
+            OrderHistory = new HashSet<OrderHistory>();
         }
 
         public Customer(string firstName, string lastName, string userName, string password)
@@ -28,7 +27,6 @@ namespace PizzaStore.Data
         public int Admin { get; set; }
 
         public Location FavoriteLocation { get; set; }
-
-
+        public ICollection<OrderHistory> OrderHistory { get; set; }
     }
 }

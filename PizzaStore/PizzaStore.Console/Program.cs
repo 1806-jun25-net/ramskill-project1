@@ -5,6 +5,7 @@ using System.IO;
 using PizzaStore.Library.Models;
 using System.Linq;
 using System;
+using PizzaStore.Library.Repositories;
 
 namespace PizzaStore.Console
 {
@@ -47,17 +48,6 @@ namespace PizzaStore.Console
             }
         }
 
-        public static void DisplayPizzas(PizzaStoreDBContext dbContext)
-        {
-            using (dbContext)
-            {
-                foreach (var item in dbContext.Pizza)
-                {
-                    System.Console.WriteLine($"{item.Id}. {item.Name}");
-                }
-            }
-        }
-
         public static void Main(string[] args)
         {
 
@@ -86,7 +76,7 @@ namespace PizzaStore.Console
             customer = LoginPrompt(customer, dbContext);
 
             //create order object
-            Library.Models.Order order = new Library.Models.Order(customer.id);
+            
 
             /**********************************************
              * This is the beginning of the menu
@@ -102,14 +92,16 @@ namespace PizzaStore.Console
                 }
                 System.Console.WriteLine("1. Start an order");
                 System.Console.WriteLine("2. Change user");
-                System.Console.WriteLine("3. Quit");
+                System.Console.WriteLine("3. View Order History");
+                System.Console.WriteLine("4. Quit");
                 string input = System.Console.ReadLine().ToLower();
                 if (input == "1")
                 {
                     //set orderLocation and/or update customer's favorite location if empty
+                    Order order = new Order(customer.id);
 
                     //if customer has not set a favorite location
-                    if (customer.favoriteLocationId == 0)//change to != from == to debug
+                    if (customer.favoriteLocationId == 0)
                     {
                         //get locations
                         while(true)
@@ -150,22 +142,22 @@ namespace PizzaStore.Console
                                 System.Console.WriteLine("That location doesn't exist. Please try again.");
                             }
                         }
-                        
                     }
                     //if customer already has a favorite location
                     else
                     {
                         //set order location and inform customer of their default location
                         order.LocationId = customer.favoriteLocationId;
-                        Location location = locationRepository.GetLocation(customer.favoriteLocationId);
+                        Location location = locationRepository.GetLocation(dbContext, customer.favoriteLocationId);
                         System.Console.WriteLine($"Ordering from {location.Name}");
                         System.Console.WriteLine("To select a different location, enter \"1\".");
                         System.Console.WriteLine("Otherwise, press any key to continue.");
                         string locInput = System.Console.ReadLine();
+
+                        //if 1, choose new location
                         if (locInput == "1")
                         {
                             System.Console.WriteLine("Select a location to place your order:");
-
                             //display locations and replace the disposed dbContext object
                             DisplayLocations(dbContext);
                             dbContext = new PizzaStoreDBContext(options);
@@ -186,47 +178,130 @@ namespace PizzaStore.Console
                                     System.Console.WriteLine("Invalid input.");
                                 }
                             }
-                            //have CustomerID, OrderLocation, and OrderID(identity), need at least 1 pizza
+                        }
+                        //if not 1, use default FavoriteLocation
+                        else
+                        {
+                            int pizzaSelection;
+                            int pizzaCount = 1;
 
-                            //display pizzas and initialize new dbContext
-                            int pizzaInputInt;
-                            while (true)
+                            while(true)
                             {
-                                System.Console.WriteLine("Select a pizza to order:");
-                                DisplayPizzas(dbContext);
-                                dbContext = new PizzaStoreDBContext(options);
-                                string pizzaInputStr = System.Console.ReadLine();
-
-                                //try converting string to int
                                 while (true)
                                 {
-                                    
-                                    try
+                                    //Customer select pizza and initialize new dbContext
+                                    pizzaSelection = Library.Models.Pizza.PickPizza(dbContext);
+                                    dbContext = new PizzaStoreDBContext(options);
+
+                                    //check if input pizzaId exists in DB
+                                    if (dbContext.Pizza.Any(o => o.Id == pizzaSelection))
                                     {
-                                        pizzaInputInt = Convert.ToInt32(pizzaInputStr);
                                         break;
                                     }
-                                    catch
+                                    else
+                                    {
+                                        System.Console.WriteLine("Invalid Input.");
+                                    }
+                                }
+
+                                //get pizza size
+                                string size = Library.Models.Pizza.GetSize();
+
+                                //add pizza to order
+                                order = Order.AddPizza(dbContext, order, pizzaSelection, pizzaCount, size);
+
+                                //if there is a pizza at current count, increment counter.
+                                if (order.Pizza1Id != 0)
+                                {
+                                    pizzaCount = 1;
+                                }
+                                if (order.Pizza2Id != 0)
+                                {
+                                    pizzaCount = 2;
+                                }
+                                if (order.Pizza3Id != 0)
+                                {
+                                    pizzaCount = 3;
+                                }
+                                if (order.Pizza4Id != 0)
+                                {
+                                    pizzaCount = 4;
+                                }
+                                if (order.Pizza5Id != 0)
+                                {
+                                    pizzaCount = 5;
+                                }
+                                if (order.Pizza6Id != 0)
+                                {
+                                    pizzaCount = 6;
+                                }
+                                if (order.Pizza7Id != 0)
+                                {
+                                    pizzaCount = 7;
+                                }
+                                if (order.Pizza8Id != 0)
+                                {
+                                    pizzaCount = 8;
+                                }
+                                if (order.Pizza9Id != 0)
+                                {
+                                    pizzaCount = 9;
+                                }
+                                if (order.Pizza10Id != 0)
+                                {
+                                    pizzaCount = 10;
+                                }
+                                if (order.Pizza11Id != 0)
+                                {
+                                    pizzaCount = 11;
+                                }
+                                if (order.Pizza12Id != 0)
+                                {
+                                    pizzaCount = 12;
+                                }
+
+                                //ask if customer wants another pizza or to checkout
+                                bool checkoutInput = false;
+                                while(true)
+                                {
+                                    System.Console.WriteLine("Would you like to add another pizza to your order? (Y/N)");
+                                    string again = System.Console.ReadLine().ToLower();
+                                    if (again == "y")
+                                    {
+                                        pizzaCount++;
+                                        break;
+                                    }
+                                    else if (again == "n")
+                                    {
+                                        checkoutInput = true;
+                                        break;
+                                    }
+                                    else
                                     {
                                         System.Console.WriteLine("Invalid input.");
                                     }
                                 }
-                                
-                                //check if input pizzaId exists in DB
-                                if (dbContext.Pizza.Any(o => o.Id == pizzaInputInt))
+
+                                if (checkoutInput == true)
                                 {
+                                    order.Dt = System.DateTime.Now;
+                                    order.PizzaCount = pizzaCount;
+                                    order.DisplayOrder(dbContext, order);
+                                    try
+                                    {
+                                        dbContext.OrderHistory.Add(OrderRepository.ObjToDBContext(order));
+                                        dbContext.SaveChanges();
+                                        break;
+                                    }
+                                    catch
+                                    {
+                                        System.Console.WriteLine("Error communicating with database. Please try again later.");
+                                    }
+                                    System.Console.ReadLine();
                                     break;
                                 }
-                                else
-                                {
-                                    System.Console.WriteLine("That location doesn't exist. Please try again.");
-                                }
                             }
-                            int pizzaCount = 1;
-                            order = Order.AddPizza(order, pizzaInputInt, pizzaCount);
-
-
-
+                            
 
                         }
                     }
@@ -237,6 +312,10 @@ namespace PizzaStore.Console
                     customer = LoginPrompt(customer, dbContext);
                 }
                 else if (input == "3")
+                {
+                    CustomerRepository.DisplayOrderHistory(dbContext, customer);
+                }
+                else if (input == "4")
                 {
                     System.Console.WriteLine("Are you sure you wish to quit? (Y/N)");
                     string quit = System.Console.ReadLine();

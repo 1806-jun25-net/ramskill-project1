@@ -25,6 +25,8 @@ namespace PizzaStore.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:ramskill-1806.database.windows.net,1433;Initial Catalog=PizzaStoreDB;Persist Security Info=False;User ID=nephesh;Password=9D2ziE79;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -90,6 +92,8 @@ namespace PizzaStore.Data
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
                 entity.Property(e => e.Dt).HasColumnName("DT");
 
                 entity.Property(e => e.LocationId).HasColumnName("LocationID");
@@ -118,87 +122,36 @@ namespace PizzaStore.Data
 
                 entity.Property(e => e.Pizza9Id).HasColumnName("Pizza9ID");
 
+                entity.Property(e => e.Total).HasColumnType("money");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.OrderHistory)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderCustomerID");
+
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.OrderHistory)
                     .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderHistoryLocation");
-
-                entity.HasOne(d => d.Pizza10)
-                    .WithMany(p => p.OrderHistoryPizza10)
-                    .HasForeignKey(d => d.Pizza10Id)
-                    .HasConstraintName("FK_OrderHistoryPizza10");
-
-                entity.HasOne(d => d.Pizza11)
-                    .WithMany(p => p.OrderHistoryPizza11)
-                    .HasForeignKey(d => d.Pizza11Id)
-                    .HasConstraintName("FK_OrderHistoryPizza11");
-
-                entity.HasOne(d => d.Pizza12)
-                    .WithMany(p => p.OrderHistoryPizza12)
-                    .HasForeignKey(d => d.Pizza12Id)
-                    .HasConstraintName("FK_OrderHistoryPizza12");
-
-                entity.HasOne(d => d.Pizza1)
-                    .WithMany(p => p.OrderHistoryPizza1)
-                    .HasForeignKey(d => d.Pizza1Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrderHistoryPizza");
-
-                entity.HasOne(d => d.Pizza2)
-                    .WithMany(p => p.OrderHistoryPizza2)
-                    .HasForeignKey(d => d.Pizza2Id)
-                    .HasConstraintName("FK_OrderHistoryPizza2");
-
-                entity.HasOne(d => d.Pizza3)
-                    .WithMany(p => p.OrderHistoryPizza3)
-                    .HasForeignKey(d => d.Pizza3Id)
-                    .HasConstraintName("FK_OrderHistoryPizza3");
-
-                entity.HasOne(d => d.Pizza4)
-                    .WithMany(p => p.OrderHistoryPizza4)
-                    .HasForeignKey(d => d.Pizza4Id)
-                    .HasConstraintName("FK_OrderHistoryPizza4");
-
-                entity.HasOne(d => d.Pizza5)
-                    .WithMany(p => p.OrderHistoryPizza5)
-                    .HasForeignKey(d => d.Pizza5Id)
-                    .HasConstraintName("FK_OrderHistoryPizza5");
-
-                entity.HasOne(d => d.Pizza6)
-                    .WithMany(p => p.OrderHistoryPizza6)
-                    .HasForeignKey(d => d.Pizza6Id)
-                    .HasConstraintName("FK_OrderHistoryPizza6");
-
-                entity.HasOne(d => d.Pizza7)
-                    .WithMany(p => p.OrderHistoryPizza7)
-                    .HasForeignKey(d => d.Pizza7Id)
-                    .HasConstraintName("FK_OrderHistoryPizza7");
-
-                entity.HasOne(d => d.Pizza8)
-                    .WithMany(p => p.OrderHistoryPizza8)
-                    .HasForeignKey(d => d.Pizza8Id)
-                    .HasConstraintName("FK_OrderHistoryPizza8");
-
-                entity.HasOne(d => d.Pizza9)
-                    .WithMany(p => p.OrderHistoryPizza9)
-                    .HasForeignKey(d => d.Pizza9Id)
-                    .HasConstraintName("FK_OrderHistoryPizza9");
             });
 
             modelBuilder.Entity<Pizza>(entity =>
             {
+                entity.HasKey(e => new { e.Id, e.Size });
+
                 entity.ToTable("Pizza", "StoreOps");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Cost).HasColumnType("decimal(16, 2)");
+                entity.Property(e => e.Size).HasMaxLength(2);
+
+                entity.Property(e => e.Cost).HasColumnType("money");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(128);
-
-                entity.Property(e => e.Size).HasMaxLength(128);
+                    .HasMaxLength(64);
             });
         }
     }

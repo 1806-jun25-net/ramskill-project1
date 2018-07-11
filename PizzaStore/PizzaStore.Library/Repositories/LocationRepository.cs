@@ -15,9 +15,9 @@ namespace PizzaStore.Library.Models
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public Data.Location GetLocation(int favLocID)
+        public Data.Location GetLocation(PizzaStoreDBContext dbContext, int favLocID)
         {
-            Data.Location locationName = _db.Location.First(u => u.Id == favLocID );
+            Data.Location locationName = dbContext.Location.First(u => u.Id == favLocID );
             return locationName;
         }
     }
