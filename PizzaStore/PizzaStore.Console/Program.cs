@@ -83,10 +83,13 @@ namespace PizzaStore.Console
              * *******************************************/
             while (true)
             {
+                //create new dbContext to fix a login bug that threw a null exeption on dbContext
+                //sometimes when switching between users
                 dbContext = new PizzaStoreDBContext(options);
+
                 System.Console.WriteLine($"Welcome {customer.firstName} {customer.lastName}.");
                 System.Console.WriteLine("Please select a valid option from the menu.");
-                //if the customer is an admit, display additional menu options
+                //if the customer is an admin, display additional menu options
                 if (customer.admin == 1)
                 {
                     System.Console.WriteLine("Admin: View Admin Menu");
