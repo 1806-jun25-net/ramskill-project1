@@ -83,6 +83,7 @@ namespace PizzaStore.Console
              * *******************************************/
             while (true)
             {
+                dbContext = new PizzaStoreDBContext(options);
                 System.Console.WriteLine($"Welcome {customer.firstName} {customer.lastName}.");
                 System.Console.WriteLine("Please select a valid option from the menu.");
                 //if the customer is an admit, display additional menu options
