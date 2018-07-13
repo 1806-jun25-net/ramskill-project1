@@ -10,9 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Data;
+using PizzaStore.Library.Repositories;
+using WebApp.Models;
 
 namespace WebApp
 {
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,11 +35,14 @@ namespace WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddScoped<RestaurantRepository>();
+            services.AddScoped<PizzaStoreRepository>();
+            services.AddScoped<CustomerWebRepo>();
             services.AddDbContext<PizzaStoreDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PizzaStoreDB")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddSessionStateTempDataProvider();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +59,7 @@ namespace WebApp
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

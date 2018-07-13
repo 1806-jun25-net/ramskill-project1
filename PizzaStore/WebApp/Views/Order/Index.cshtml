@@ -1,0 +1,120 @@
+﻿@model WebApp.Models.OrderWeb
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>OrderWeb</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Dt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LocationId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PizzaCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PizzaCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza1Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza1Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza2Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza2Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza3Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza3Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza4Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza4Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza5Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza5Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza6Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza6Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza7Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza7Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza8Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza8Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza9Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza9Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza10Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza10Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza11Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza11Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pizza12Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pizza12Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

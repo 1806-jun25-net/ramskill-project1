@@ -26,14 +26,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WebApp</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Pizza Pineapple</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="CustomerController" asp-action="Index">Login</a></li>
+                    <li><a asp-area="" asp-controller="Order" asp-action="Index">Order</a></li>
+                    @try
+                    {
+                        if (TempData.Peek("CustomerFirstName").Equals(" "))
+                        {
+                            <li><a asp-area="" asp-controller="Customer" asp-action="Login">Login</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Customer" asp-action="Details" asp-route-id="@TempData.Peek("CustomerID")">@TempData.Peek("CustomerFirstName")</a></li>
+                        }
+                    }
+                    catch
+                    {
+                            <li><a asp-area="" asp-controller="Customer" asp-action="Login">Login</a></li>
+                    }
+
                 </ul>
             </div>
         </div>

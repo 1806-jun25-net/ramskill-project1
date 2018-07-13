@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -12,7 +13,8 @@ namespace WebApp.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            return View();
+            OrderWeb order = new OrderWeb();
+            return View(order);
         }
 
         // GET: Order/Details/5

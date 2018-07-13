@@ -1,0 +1,41 @@
+﻿@model WebApp.Models.CustomerWeb
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="form-group">
+    <a asp-area="" asp-controller="Customer" asp-action="Logout" class="btn btn-default">Logout</a>
+</div>
+
+<div>
+    @*<h4>CustomerWeb</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.favoriteLocationId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.favoriteLocationId)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.id}) |
+    <a asp-action="Index">Back to List</a>
+
+</div>

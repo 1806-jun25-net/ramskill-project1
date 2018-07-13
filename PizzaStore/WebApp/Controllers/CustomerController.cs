@@ -4,13 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
+using PizzaStore.Library.Models;
+using PizzaStore.Data;
 
 namespace WebApp.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: Customer
-        public ActionResult Index()
+
+        public CustomerWebRepo Repo { get; }
+
+        public CustomerController(CustomerWebRepo repo)
+        {
+            Repo = repo;
+        }
+
+        // GET: Customer/Login
+        public ActionResult Login()
         {
             return View();
         }
@@ -18,7 +29,18 @@ namespace WebApp.Controllers
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var customer = Repo.GetCustomerById(id);
+            var webCust = new CustomerWeb
+            {
+                id = customer.id,
+                firstName = customer.firstName,
+                lastName = customer.lastName,
+                userName = customer.userName,
+                password = customer.password,
+                favoriteLocationId = customer.favoriteLocationId,
+                admin = customer.admin
+            };
+            return View(webCust);
         }
 
         // GET: Customer/Create
@@ -27,16 +49,71 @@ namespace WebApp.Controllers
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: Customer/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Login(CustomerWeb customer)
         {
             try
             {
-                // TODO: Add insert logic here
+                CustomerWeb customerInfo = Repo.Login(customer);
 
-                return RedirectToAction(nameof(Index));
+                TempData["CustomerID"] = customerInfo.id;
+                TempData["CustomerFirstName"] = customerInfo.firstName;
+                TempData["CustomerLastName"] = customerInfo.lastName;
+                TempData["CustomerFavoriteLocation"] = customerInfo.favoriteLocationId;
+                TempData["CustomerAdmin"] = customerInfo.admin;
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+
+        // GET: Customer/Logout
+        public ActionResult Logout()
+        {
+            try
+            {
+                TempData["CustomerID"] = " ";
+                TempData["CustomerFirstName"] = " ";
+                TempData["CustomerLastName"] = "";
+                TempData["CustomerFavoriteLocation"] = " ";
+                TempData["CustomerAdmin"] = " ";
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+        // POST: Customer/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CustomerWeb customer)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Repo.AddCustomer(new CustomerWeb
+                    {
+                        firstName = customer.firstName,
+                        lastName = customer.lastName,
+                        userName = customer.userName,
+                        password = customer.password,
+                        favoriteLocationId = customer.favoriteLocationId
+                    });
+
+                    Repo.Save();
+                }
+
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -59,7 +136,7 @@ namespace WebApp.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             catch
             {
@@ -82,7 +159,7 @@ namespace WebApp.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
             catch
             {
