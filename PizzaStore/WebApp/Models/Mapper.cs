@@ -97,6 +97,6 @@ namespace WebApp.Models
             Size = pizza.Size,
             Name = pizza.Name,
             Cost = pizza.Cost
-        };
+        }; 
     }
 }

@@ -36,7 +36,8 @@ namespace WebApp.Controllers
         // GET: Order/Create
         public ActionResult Create()
         {
-            return View();
+            OrderWeb order = new OrderWeb();
+            return View(order);
         }
 
         // POST: Order/Create

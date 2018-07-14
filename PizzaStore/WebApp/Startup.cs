@@ -37,6 +37,7 @@ namespace WebApp
 
             services.AddScoped<PizzaStoreRepository>();
             services.AddScoped<CustomerWebRepo>();
+            services.AddScoped<OrderRepository>();
             services.AddDbContext<PizzaStoreDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PizzaStoreDB")));
 

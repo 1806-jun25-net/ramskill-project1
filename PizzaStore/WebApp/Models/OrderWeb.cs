@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,11 +36,13 @@ namespace WebApp.Models
         public int? Pizza11Id { get; set; }
         public int? Pizza12Id { get; set; }
         public int CustomerId { get; set; }
-       
 
-       public OrderWeb()
+        [Display(Name = "Location: ")]
+        public string tempLocation { get; set; }
+
+
+        public OrderWeb()
         {
-
         }
 
         public OrderWeb(int locationId, int customerId)
@@ -47,5 +50,12 @@ namespace WebApp.Models
             LocationId = locationId;
             CustomerId = customerId;
         }
+
+        public List<SelectListItem> LocationEnumerable = new List<SelectListItem>
+        {
+            new SelectListItem {Value = "1", Text = "Reston"},
+            new SelectListItem {Value = "2", Text = "Ashburn"},
+            new SelectListItem {Value = "3", Text = "Sterling"}
+        };
     }
 }
