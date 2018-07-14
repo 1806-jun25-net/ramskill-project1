@@ -153,20 +153,20 @@ namespace PizzaStore.Library.Models
             return customerObj;
         }
 
-        public static void DisplayOrderHistory(PizzaStoreDBContext dbContext, CustomerRepository customer)
-        {
-            using (dbContext)
-            {
-                foreach (var item in dbContext.OrderHistory)
-                {
-                    if(item.CustomerId == customer.id)
-                    {
-                        Order order = OrderRepository.DBContextToObject(item);
-                        order.DisplayOrder(dbContext, order);
-                    }
-                }
-            }
-        }
+        //public static void DisplayOrderHistory(PizzaStoreDBContext dbContext, CustomerRepository customer)
+        //{
+        //    using (dbContext)
+        //    {
+        //        foreach (var item in dbContext.OrderHistory)
+        //        {
+        //            if(item.CustomerId == customer.id)
+        //            {
+        //                Order order = OrderRepository.DBContextToObject(item);
+        //                order.DisplayOrder(dbContext, order);
+        //            }
+        //        }
+        //    }
+        //}
 
         public void UpdateFavoriteLocation(CustomerRepository customer, int newLocationId,PizzaStoreDBContext dbContext)
         {

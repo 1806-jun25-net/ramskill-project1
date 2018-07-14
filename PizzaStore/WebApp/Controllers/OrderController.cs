@@ -4,12 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Library.Repositories;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class OrderController : Controller
     {
+
+        public OrderRepository Repo { get; }
+
+        public OrderController(OrderRepository repo)
+        {
+            Repo = repo;
+        }
+
+
         // GET: Order
         public ActionResult Index()
         {
@@ -36,10 +46,11 @@ namespace WebApp.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index", "Home");
             }
+            
             catch
             {
                 return View();

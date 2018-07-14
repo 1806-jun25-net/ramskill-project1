@@ -70,5 +70,17 @@ namespace WebApp.Models
             CustomerId = order.CustomerId,
             Total = order.Total
         };
+
+        public static LocationWeb Map(Location location) => new LocationWeb
+        {
+            Id = location.Id,
+            Name = location.Name
+        };
+
+        public static Location Map(LocationWeb location) => new Location
+        {
+            Id = location.Id,
+            Name = location.Name
+        };
     }
 }

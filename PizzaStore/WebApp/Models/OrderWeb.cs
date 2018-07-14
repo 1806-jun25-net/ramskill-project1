@@ -9,12 +9,19 @@ namespace WebApp.Models
     public class OrderWeb
     {
         public int Id { get; set; }
+
         [Display(Name = "Date")]
         public DateTime Dt { get; set; }
+
         [Display(Name = "Location")]
         public int LocationId { get; set; }
+
         [Display(Name = "Number of Pizzas")]
         public int PizzaCount { get; set; }
+
+        [Display(Name = "Total")]
+        public decimal Total { get; set; }
+
         public int Pizza1Id { get; set; }
         public int? Pizza2Id { get; set; }
         public int? Pizza3Id { get; set; }
@@ -28,8 +35,7 @@ namespace WebApp.Models
         public int? Pizza11Id { get; set; }
         public int? Pizza12Id { get; set; }
         public int CustomerId { get; set; }
-        [Display(Name = "Total")]
-        public decimal Total { get; set; }
+       
 
        public OrderWeb()
         {

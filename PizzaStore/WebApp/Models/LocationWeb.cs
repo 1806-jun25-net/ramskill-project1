@@ -7,5 +7,7 @@ namespace WebApp.Models
 {
     public class LocationWeb
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
