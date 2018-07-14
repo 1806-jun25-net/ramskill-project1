@@ -28,6 +28,17 @@ namespace PizzaStore.Library.Repositories
         {
             return Mapper.Map(_db.Location.AsNoTracking().First(r => r.Name == name));
         }
+
+        public IEnumerable<string> GetPizzaNames()
+        {
+            var names = _db.Pizza.AsEnumerable().Select(r => r.Name).ToList();
+            return names;
+        }
+
+        public PizzaWeb GetPizzaByName(string name)
+        {
+            return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Name == name));
+        }
         
         public void Save()
         {

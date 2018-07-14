@@ -82,5 +82,21 @@ namespace WebApp.Models
             Id = location.Id,
             Name = location.Name
         };
+
+        public static Pizza Map(PizzaWeb pizza) => new Pizza
+        {
+            Id = pizza.Id,
+            Size = pizza.Size,
+            Name = pizza.Name,
+            Cost = pizza.Cost
+        };
+
+        public static PizzaWeb Map(Pizza pizza) => new PizzaWeb
+        {
+            Id = pizza.Id,
+            Size = pizza.Size,
+            Name = pizza.Name,
+            Cost = pizza.Cost
+        };
     }
 }
