@@ -19,6 +19,7 @@ namespace WebApp.Controllers
         {
             Repo = repo;
         }
+        
 
 
         // GET: Order
@@ -32,6 +33,133 @@ namespace WebApp.Controllers
         public ActionResult OrderConfirmation(DateTime dateTime)
         {
             OrderWeb order = Repo.GetOrderByDateTime(dateTime);
+            var loc = Repo.GetLocationById(order.LocationId);
+            TempData["LocationName"] = loc.Name;
+            var cust = Repo.GetCustomerById(order.CustomerId);
+            TempData["CustomerFirstName"] = cust.firstName;
+            TempData["CustomerLastName"] = cust.lastName;
+            //pizza1
+            if(order.Pizza1Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza1Id);
+                TempData["Pizza1"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza1"] = "noPizza";
+
+            }
+            //pizza2
+            if (order.Pizza2Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza2Id);
+                TempData["Pizza2"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza2"] = "noPizza";
+            }
+            //pizza3
+            if (order.Pizza3Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza3Id);
+                TempData["Pizza3"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza3"] = "noPizza";
+            }
+            //pizza4
+            if (order.Pizza4Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza4Id);
+                TempData["Pizza4"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza4"] = "noPizza";
+            }
+            //pizza5
+            if (order.Pizza5Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza5Id);
+                TempData["Pizza5"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza5"] = "noPizza";
+            }
+            //pizza6
+            if (order.Pizza6Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza6Id);
+                TempData["Pizza6"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza6"] = "noPizza";
+            }
+            //pizza7
+            if (order.Pizza7Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza7Id);
+                TempData["Pizza7"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza7"] = "noPizza";
+            }
+            //pizza8
+            if (order.Pizza8Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza8Id);
+                TempData["Pizza8"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza8"] = "noPizza";
+            }
+            //pizza9
+            if (order.Pizza9Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza9Id);
+                TempData["Pizza9"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza9"] = "noPizza";
+            }
+            //pizza10
+            if (order.Pizza10Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza10Id);
+                TempData["Pizza10"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza10"] = "noPizza";
+            }
+            //pizza11
+            if (order.Pizza11Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza11Id);
+                TempData["Pizza11"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza11"] = "noPizza";
+            }
+            //pizza12
+            if (order.Pizza12Id != 0)
+            {
+                var pizza = Repo.GetPizzaById(order.Pizza12Id);
+                TempData["Pizza12"] = pizza.Name;
+            }
+            else
+            {
+                TempData["Pizza12"] = "noPizza";
+            }
+
             return View(order);
         }
 

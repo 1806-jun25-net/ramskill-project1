@@ -10,6 +10,7 @@ namespace WebApp.Models
 {
     public class OrderWeb
     {
+        [Display(Name = "Order ID")]
         public int Id { get; set; }
 
         [Display(Name = "Date")]

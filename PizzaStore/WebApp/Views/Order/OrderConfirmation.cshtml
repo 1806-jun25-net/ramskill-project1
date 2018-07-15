@@ -11,112 +11,109 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
+            <strong>Order ID</strong>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Dt)
+            <strong>Date:</strong>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Dt)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LocationId)
+            <strong>Location</strong>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LocationId)
+            @TempData["LocationName"]
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PizzaCount)
+            <strong>Name</strong>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PizzaCount)
+            @TempData["CustomerFirstName"] @TempData["CustomerLastName"]
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            <strong>Pizzas Ordered</strong>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CustomerId)
+            @if (TempData.Peek("Pizza1") != "noPizza")
+            {
+                @TempData["Pizza1"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza2") != "noPizza")
+            {
+                @TempData["Pizza2"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza3") != "noPizza")
+            {
+                @TempData["Pizza3"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza4") != "noPizza")
+            {
+                @TempData["Pizza4"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza5") != "noPizza")
+            {
+                @TempData["Pizza5"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza6") != "noPizza")
+            {
+                @TempData["Pizza6"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza7") != "noPizza")
+            {
+                @TempData["Pizza7"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza8") != "noPizza")
+            {
+                @TempData["Pizza8"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza9") != "noPizza")
+            {
+                @TempData["Pizza9"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza10") != "noPizza")
+            {
+                @TempData["Pizza10"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza11") != "noPizza")
+            {
+                @TempData["Pizza11"]
+            }
+        </dd>
+        <dd>
+            @if (TempData.Peek("Pizza12") != "noPizza")
+            {
+                @TempData["Pizza12"]
+            }
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Total)
+            <strong>Order Total</strong>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza1Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza1Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza2Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza2Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza3Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza3Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza4Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza4Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza5Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza5Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza6Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza6Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza7Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza7Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza8Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza8Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza9Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza9Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza10Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza10Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza11Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza11Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pizza12Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pizza12Id)
+            $@Html.DisplayFor(model => model.Total)
         </dd>
     </dl>
 </div>
