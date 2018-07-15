@@ -1,0 +1,444 @@
+﻿@model IEnumerable<WebApp.Models.OrderWeb>
+
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+<h2>OrderHistory</h2>
+
+<div>
+    <h4>OrderWeb</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+            OrderWeb order = item;
+
+            <dt>
+                <strong>Order ID</strong>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.Id)
+            </dd>
+            <dt>
+                <strong>Date:</strong>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.Dt)
+            </dd>
+            <dt>
+                <strong>Location</strong>
+            </dt>
+            @if (item.LocationId == 1)
+            {
+                <dd>@TempData.Peek("LocationId1")</dd>
+            }
+            else if (item.LocationId == 2)
+            {
+                <dd>@TempData.Peek("LocationId2")</dd>
+            }
+            else if (item.LocationId == 3)
+            {
+                <dd>@TempData.Peek("LocationId3")</dd>
+            }
+            else if (item.LocationId == 4)
+            {
+                <dd>@TempData.Peek("LocationId4")</dd>
+            }
+            <dt>
+                <strong>Name</strong>
+            </dt>
+            <dd>
+                @TempData.Peek("CustomerFirstName") @TempData.Peek("CustomerLastName")
+            </dd>
+            <dt>
+                <strong>Pizzas Ordered</strong>
+            </dt>
+            @*Pizza1*@
+            @if (item.Pizza1Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza2*@
+            @if (item.Pizza2Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza3*@
+            @if (item.Pizza3Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza4*@
+            @if (item.Pizza4Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza5*@
+            @if (item.Pizza5Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza6*@
+            @if (item.Pizza6Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza7*@
+            @if (item.Pizza7Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza8*@
+            @if (item.Pizza8Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza9*@
+            @if (item.Pizza9Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza10*@
+            @if (item.Pizza10Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza11*@
+            @if (item.Pizza11Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            @*Pizza12*@
+            @if (item.Pizza12Id != 0)
+            {
+                if (item.Pizza1Id == 1)
+                {
+                    <dd>@TempData.Peek("PizzaId1")</dd>
+                }
+                else if (item.Pizza1Id == 2)
+                {
+                    <dd>@TempData.Peek("PizzaId2")</dd>
+                }
+                else if (item.Pizza1Id == 3)
+                {
+                    <dd>@TempData.Peek("PizzaId3")</dd>
+                }
+
+                else if (item.Pizza1Id == 4)
+                {
+                    <dd>@TempData.Peek("PizzaId4")</dd>
+                }
+
+                else if (item.Pizza1Id == 5)
+                {
+                    <dd>@TempData.Peek("PizzaId5")</dd>
+                }
+
+                else if (item.Pizza1Id == 6)
+                {
+                    <dd>@TempData.Peek("PizzaId6")</dd>
+                }
+            }
+            <dt>
+                <strong>Order Total</strong>
+            </dt>
+            <dd>
+                $@Html.DisplayFor(model => item.Total)
+            </dd>
+            <dd>
+                ___________________________________________
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

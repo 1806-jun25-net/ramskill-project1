@@ -61,6 +61,20 @@ namespace PizzaStore.Library.Repositories
             return orderNow;
         }
 
+        public List<OrderWeb> GetOrderHistoryByCustomerId(int id)
+        {
+            List<OrderWeb> orderHistory = new List<OrderWeb>();
+
+            foreach(var item in _db.OrderHistory)
+            {
+                if(item.CustomerId == id)
+                {
+                    orderHistory.Add(Mapper.Map(item));
+                }
+            }
+            return orderHistory;
+        }
+
         public PizzaWeb GetPizza(int id, string size)
         {
             return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Id == id && r.Size == size));

@@ -346,6 +346,76 @@ namespace WebApp.Controllers
             }
         }
 
+        // GET: Order/SortSelection
+        public ActionResult SortSelection()
+        {
+            OrderWeb order = new OrderWeb();
+            return View(order);
+        }
+
+        // POST: Order/SortSelection
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SortSelection(OrderWeb order)
+        {
+            try
+            {
+                return RedirectToAction("OrderHistory", "Order", new { sortID = order.sortSelect });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Order/OrderHistory
+        public ActionResult OrderHistory(string sortID)
+        {
+            var orderList = Repo.GetOrderHistoryByCustomerId((int)TempData.Peek("CustomerId"));
+            IEnumerable<OrderWeb> orderHistory = new List<OrderWeb>();
+
+            switch (sortID)
+            {
+                case "PriceLow":
+                    orderHistory = orderList.OrderBy(x => x.Total);
+                    break;
+
+                case "PriceHigh":
+                    orderHistory = orderList.OrderByDescending(x => x.Total);
+                    break;
+
+                case "Oldest":
+                    orderHistory = orderList.OrderBy(x => x.Dt);
+                    break;
+
+                case "Newest":
+                    orderHistory = orderList.OrderByDescending(x => x.Dt);
+                    break;
+
+                default:
+                    orderHistory = orderList;
+                    break;
+            }
+
+            //save customer name
+            CustomerWeb customer = Repo.GetCustomerById((int)TempData.Peek("CustomerId"));
+            TempData["CustomerFirstName"] = customer.firstName;
+            TempData["CustomerLastName"] = customer.lastName;
+            //save location and pizza names
+            TempData["LocationId1"] = "Reston";
+            TempData["LocationId1"] = "Ashburn";
+            TempData["LocationId1"] = "Sterling";
+            TempData["PizzaId1"] = "Cheese";
+            TempData["PizzaId2"] = "Pepperoni";
+            TempData["PizzaId3"] = "Meat Lovers";
+            TempData["PizzaId4"] = "Veggie";
+            TempData["PizzaId5"] = "Hawaiian";
+            TempData["PizzaId6"] = "Golden Sun";
+
+            return View(orderHistory);
+        }
+
+        
         // GET: Order/Edit/5
         public ActionResult Edit(int id)
         {

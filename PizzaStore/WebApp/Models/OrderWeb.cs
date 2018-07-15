@@ -88,7 +88,17 @@ namespace WebApp.Models
             new SelectListItem {Value = "LG", Text = "Large"}
         };
 
+        [Display(Name = "Sort By:")]
+        public List<SelectListItem> SortEnumerable = new List<SelectListItem>
+        {
+            new SelectListItem {Value = "PriceHigh", Text = "Most Expensive"},
+            new SelectListItem {Value = "PriceLow", Text = "Least Expensive"},
+            new SelectListItem {Value = "Newest", Text = "Newest"},
+            new SelectListItem {Value = "Oldest", Text = "Oldest"}
+        };
 
+        [Display(Name = "Sort By:")]
+        public string sortSelect { get; set; }
 
 
 

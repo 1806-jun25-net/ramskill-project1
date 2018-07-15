@@ -45,7 +45,20 @@
                     {
 
                     }
+                    @try
+                    {
+                        if (TempData.Peek("CustomerID").Equals(" "))
+                        {
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Order" asp-action="SortSelection">View Order History</a></li>
+                        }
+                    }
+                    catch
+                    {
 
+                    }
 
                     @try
                     {

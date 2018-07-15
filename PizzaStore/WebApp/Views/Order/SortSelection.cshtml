@@ -1,0 +1,28 @@
+﻿@model WebApp.Models.OrderWeb
+
+@{
+    ViewData["Title"] = "SortSelection";
+}
+
+<h2>SortSelection</h2>
+
+<h4>OrderWeb</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SortSelection">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <strong>Sort By:</strong>
+                @Html.DropDownListFor(Model => Model.sortSelect, new SelectList(Model.SortEnumerable, "Value", "Text"), new { required = (string)null })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="GO" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
