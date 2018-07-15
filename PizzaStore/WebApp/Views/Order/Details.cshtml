@@ -1,15 +1,21 @@
-﻿@model WebApp.Models.OrderWeb
+﻿@model PizzaStore.Data.OrderHistory
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
 }
 
-<h2>Index</h2>
+<h2>Details</h2>
 
 <div>
-    <h4>OrderWeb</h4>
+    <h4>OrderHistory</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Dt)
         </dt>

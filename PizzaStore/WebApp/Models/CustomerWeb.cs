@@ -1,4 +1,5 @@
-﻿using PizzaStore.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PizzaStore.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,6 +22,14 @@ namespace WebApp.Models
         [Display(Name = "Favorite Location")]
         public int favoriteLocationId { get; set; }
         public int admin { get; set; }
+
+        [Display(Name = "Favorite Location")]
+        public List<SelectListItem> LocationEnumerable = new List<SelectListItem>
+        {
+            new SelectListItem {Value = "1", Text = "Reston"},
+            new SelectListItem {Value = "2", Text = "Ashburn"},
+            new SelectListItem {Value = "3", Text = "Sterling"}
+        };
 
         public CustomerWeb()
         {

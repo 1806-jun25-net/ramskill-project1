@@ -4,27 +4,44 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Pizza Creater</h2>
 
-<h4>OrderWeb</h4>
+<h4>It's your party!</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-               @Html.LabelFor(model => Model.tempLocation)
-                @Html.DropDownListFor(Model => Model.tempLocation, new SelectList(Model.LocationEnumerable, "Value", "Text"), new { required = (string)null })
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-            <div class="form-group">
-                <a asp-area="" asp-controller="Order" asp-action="Create" class="btn btn-default">Checkout</a>
-            </div>
-        </form>
+<form asp-action="Create">
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-1">
+            @Html.LabelFor(model => Model.PizzaId)
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            @Html.LabelFor(model => Model.PizzaSize)
+        </div>
     </div>
-</div>
+    @for (int i = 0; i < (int)TempData.Peek("PizzaCount"); i++)
+    {
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-1">
+                @Html.DropDownListFor(Model => Model.PizzaId, new SelectList(Model.PizzaEnumerable, "Value", "Text"), new { required = (string)null })
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
+                @Html.DropDownListFor(Model => Model.PizzaSize, new SelectList(Model.SizeEnumerable, "Value", "Text"), new { required = (string)null })
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="form-group"></div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <input type="submit" value="Checkout" class="btn btn-default" />
+        </div>
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>

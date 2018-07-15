@@ -46,7 +46,8 @@ namespace WebApp.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
-            return View();
+            CustomerWeb customer = new CustomerWeb();
+            return View(customer);
         }
 
         // POST: Customer/Login
@@ -107,7 +108,7 @@ namespace WebApp.Controllers
                         lastName = customer.lastName,
                         userName = customer.userName,
                         password = customer.password,
-                        favoriteLocationId = customer.favoriteLocationId
+                        favoriteLocationId = (int)customer.favoriteLocationId
                     });
 
                     Repo.Save();

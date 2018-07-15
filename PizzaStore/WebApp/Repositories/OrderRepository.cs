@@ -35,11 +35,16 @@ namespace PizzaStore.Library.Repositories
             return names;
         }
 
-        public PizzaWeb GetPizzaByName(string name)
+        public PizzaWeb GetPizza(int id, string size)
         {
-            return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Name == name));
+            return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Id == id && r.Size == size));
         }
-        
+
+        public void AddOrder(OrderWeb order)
+        {
+            _db.Add(Mapper.Map(order));
+        }
+
         public void Save()
         {
             _db.SaveChanges();
