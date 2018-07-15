@@ -118,7 +118,7 @@ namespace WebApp.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 
