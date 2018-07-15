@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Data;
 using PizzaStore.Library.Repositories;
 using WebApp.Models;
 
@@ -27,10 +28,11 @@ namespace WebApp.Controllers
             return View(order);
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id)
+        // GET: Order/OrderConfirmation/5
+        public ActionResult OrderConfirmation(DateTime dateTime)
         {
-            return View();
+            OrderWeb order = Repo.GetOrderByDateTime(dateTime);
+            return View(order);
         }
 
         // GET: Order/StartOrder
@@ -204,7 +206,10 @@ namespace WebApp.Controllers
                 Repo.AddOrder(order);
                 Repo.Save();
 
-                return RedirectToAction("Details", "Order");
+
+
+
+                return RedirectToAction("OrderConfirmation", "Order", new {dateTime = order.Dt});
             }
             
             catch

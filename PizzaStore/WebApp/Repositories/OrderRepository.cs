@@ -35,6 +35,20 @@ namespace PizzaStore.Library.Repositories
             return names;
         }
 
+        public OrderWeb GetOrderByDateTime(DateTime dt)
+        {
+            var order = _db.OrderHistory;
+
+            foreach(var item in order)
+            {
+                if (item.Dt.Equals(dt))
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
+        }
+
         public PizzaWeb GetPizza(int id, string size)
         {
             return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Id == id && r.Size == size));

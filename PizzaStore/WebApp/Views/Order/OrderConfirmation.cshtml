@@ -1,13 +1,13 @@
-﻿@model PizzaStore.Data.OrderHistory
+﻿@model WebApp.Models.OrderWeb
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "OrderConfirmation";
 }
 
-<h2>Details</h2>
+<h2>OrderConfirmation</h2>
 
 <div>
-    <h4>OrderHistory</h4>
+    <h4>OrderWeb</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,6 +33,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.PizzaCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Total)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Pizza1Id)
@@ -105,18 +117,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Pizza12Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CustomerId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Total)
         </dd>
     </dl>
 </div>
