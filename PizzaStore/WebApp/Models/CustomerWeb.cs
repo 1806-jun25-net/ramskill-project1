@@ -18,6 +18,7 @@ namespace WebApp.Models
         [Display(Name = "Username")]
         public string userName { get; set; }
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string password { get; set; }
         [Display(Name = "Favorite Location")]
         public int favoriteLocationId { get; set; }
