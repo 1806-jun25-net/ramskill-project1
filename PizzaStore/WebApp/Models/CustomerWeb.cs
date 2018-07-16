@@ -12,15 +12,20 @@ namespace WebApp.Models
     {
         public int id { get; set; }
         [Display(Name="First Name")]
+        [Required]
         public string firstName { get; set; }
         [Display(Name = "Last Name")]
+        [Required]
         public string lastName { get; set; }
         [Display(Name = "Username")]
+        [Required]
         public string userName { get; set; }
         [Display(Name = "Password")]
+        [Required]
         [DataType(DataType.Password)]
         public string password { get; set; }
         [Display(Name = "Favorite Location")]
+        [Required]
         public int favoriteLocationId { get; set; }
         public int admin { get; set; }
 
