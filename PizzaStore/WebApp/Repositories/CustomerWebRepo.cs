@@ -32,6 +32,11 @@ namespace WebApp.Models
             return Mapper.Map(_db.Customer.AsNoTracking().First(r => r.Id == id));
         }
 
+        public CustomerWeb GetCustomerByUsername(string username)
+        {
+            return Mapper.Map(_db.Customer.AsNoTracking().First(c => c.UserName == username));
+        }
+
         public void Save()
         {
             _db.SaveChanges();

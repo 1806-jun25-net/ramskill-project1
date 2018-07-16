@@ -112,6 +112,14 @@ namespace WebApp.Controllers
                     });
 
                     Repo.Save();
+
+                    CustomerWeb customerInfo = Repo.GetCustomerByUsername(customer.userName);
+                    TempData["CustomerID"] = customerInfo.id;
+                    TempData["CustomerFirstName"] = customerInfo.firstName;
+                    TempData["CustomerLastName"] = customerInfo.lastName;
+                    TempData["CustomerFavoriteLocation"] = customerInfo.favoriteLocationId;
+                    TempData["CustomerAdmin"] = customerInfo.admin;
+
                 }
 
                 return RedirectToAction("Index", "Home");
