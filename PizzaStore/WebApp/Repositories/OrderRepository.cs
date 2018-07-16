@@ -75,6 +75,22 @@ namespace PizzaStore.Library.Repositories
             return orderHistory;
         }
 
+        //intended to be used after GetOrderHistoryByCustomerId.
+        //returns a list of orders by a specific user at a specific location
+        public List<OrderWeb> GetOrderHistoryByLocationId(int LocationId, List<OrderWeb> orderHistory)
+        {
+            List<OrderWeb> result = new List<OrderWeb>();
+
+            foreach (var item in orderHistory)
+            {
+                if (item.LocationId == LocationId)
+                {
+                    result.Add(item);
+                }
+            }
+            return orderHistory;
+        }
+
         public PizzaWeb GetPizza(int id, string size)
         {
             return Mapper.Map(_db.Pizza.AsNoTracking().First(r => r.Id == id && r.Size == size));

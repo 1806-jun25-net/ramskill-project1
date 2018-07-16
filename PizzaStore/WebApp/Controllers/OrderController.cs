@@ -203,14 +203,34 @@ namespace WebApp.Controllers
         {
             try
             {
-                order.LocationId = (int)TempData["LocationID"];
-                order.PizzaCount = (int)TempData["PizzaCount"];
-                order.CustomerId = (int)TempData["CustomerId"]; //make Order only show up when customer logs in
+                order.LocationId = (int)TempData.Peek("LocationID");
+                order.PizzaCount = (int)TempData.Peek("PizzaCount");
+                order.CustomerId = (int)TempData.Peek("CustomerId");
                 order.Dt = DateTime.Now;
                 order.Total = 0;
 
+                //kick customer back to StarOrder if they placed an order at this location in the last 2 hours
+                var orderList = Repo.GetOrderHistoryByCustomerId((int)TempData.Peek("CustomerId"));
+                List<OrderWeb> orderHistory = Repo.GetOrderHistoryByLocationId((int)TempData.Peek("LocationID"), orderList);
+                //custLocOrderHist is the order history of a specific customer at a specific location sorted from newest to oldest
+                IEnumerable<OrderWeb> custLocOrderHist = orderHistory.OrderByDescending(x => x.Dt);
+                OrderWeb newest = custLocOrderHist.First();
+                TimeSpan timeSpan = order.Dt.Subtract(newest.Dt);
+
+                if(order.LocationId == newest.LocationId)
+                {
+                    if (timeSpan.Hours < 2)
+                    {
+                        ModelState.AddModelError("", "Unable to submit order. Cannot order from the same location within two hours of the previous order.");
+                        return RedirectToAction("StartOrder", "Order");
+                    }
+                }
+
+                
+
+
                 //populate total
-                for(int i = 0; i < order.PizzaCount; i++)
+                for (int i = 0; i < order.PizzaCount; i++)
                 {
                     var pizza = Repo.GetPizza(order.PizzaId[i], order.PizzaSize[i]);
                     order.Total += pizza.Cost;
