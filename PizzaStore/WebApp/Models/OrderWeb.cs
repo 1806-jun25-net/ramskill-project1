@@ -100,8 +100,12 @@ namespace WebApp.Models
         [Display(Name = "Sort By:")]
         public string sortSelect { get; set; }
 
-
-
+        public int[] CheeseInv = { 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        public int[] PepperoniInv = { 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+        public int[] MeatLoversInv = { 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0 };
+        public int[] VeggieInv = { 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 };
+        public int[] HawaiianInv = { 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+        public int[] GoldenSunInv = { 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 
     }
 }

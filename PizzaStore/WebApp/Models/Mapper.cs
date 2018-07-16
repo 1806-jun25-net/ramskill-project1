@@ -97,6 +97,22 @@ namespace WebApp.Models
             Size = pizza.Size,
             Name = pizza.Name,
             Cost = pizza.Cost
-        }; 
+        };
+
+        public static Inventory Map(InventoryWeb inventory) => new Inventory
+        {
+            LocationId = inventory.LocationId,
+            ToppingId = inventory.ToppingId,
+            Quantity = inventory.Quantity,
+            Name = inventory.Name
+        };
+
+        public static InventoryWeb Map(Inventory inventory) => new InventoryWeb
+        {
+            LocationId = inventory.LocationId,
+            ToppingId = inventory.ToppingId,
+            Quantity = inventory.Quantity,
+            Name = inventory.Name
+        };
     }
 }

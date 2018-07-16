@@ -90,6 +90,33 @@ namespace PizzaStore.Library.Repositories
             _db.Add(Mapper.Map(order));
         }
 
+        public List<InventoryWeb> GetInventoryByLocation(int locId)
+        {
+            List<InventoryWeb> inventory = new List<InventoryWeb>();
+
+            foreach (var item in _db.Inventory)
+            {
+                if(item.LocationId == locId)
+                {
+                    inventory.Add(Mapper.Map(item));
+                }
+            }
+            return inventory;
+        }
+        
+        public void UpdateInventory(InventoryWeb inventory)
+        {
+            try
+            {
+                _db.Entry(_db.Inventory.Find(inventory.LocationId,inventory.ToppingId)).CurrentValues.SetValues(Mapper.Map(inventory));
+            }
+            catch
+            {
+
+            }
+            
+        }
+
         public void Save()
         {
             _db.SaveChanges();

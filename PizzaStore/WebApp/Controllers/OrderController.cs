@@ -222,12 +222,54 @@ namespace WebApp.Controllers
                     return RedirectToAction("Create", "Order");
                 }
 
+                //create inventory list to apply aggregate sum function to for final inventory decrimentor
+                List<int[]> invDec = new List<int[]>();
+
+                //get current inventory for location
+                List<InventoryWeb> LocInv = new List<InventoryWeb>();
+                LocInv = Repo.GetInventoryByLocation(order.LocationId);
+
+                int[] locationInv = new int[13];
+                foreach(var item in LocInv)
+                {
+                    for(int i = 0; i < locationInv.Length; i++)
+                    {
+                        locationInv[i] = item.Quantity.GetValueOrDefault();
+                    }
+                }
+
+
                 //Pizza1ID
                 try
                 {
                     if (order.PizzaId[0] > 0)
                     {
                         order.Pizza1Id = order.PizzaId[0];
+
+                        if(order.Pizza1Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if(order.Pizza1Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza1Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza1Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza1Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza1Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -237,6 +279,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[1] > 0)
                     {
                         order.Pizza2Id = order.PizzaId[1];
+
+                        if (order.Pizza2Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza2Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza2Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza2Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza2Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza2Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -246,6 +313,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[2] > 0)
                     {
                         order.Pizza3Id = order.PizzaId[2];
+
+                        if (order.Pizza3Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza3Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza3Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza3Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza3Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza3Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -255,6 +347,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[3] > 0)
                     {
                         order.Pizza4Id = order.PizzaId[3];
+
+                        if (order.Pizza4Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza4Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza4Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza4Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza4Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza4Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -264,6 +381,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[4] > 0)
                     {
                         order.Pizza5Id = order.PizzaId[4];
+
+                        if (order.Pizza5Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza5Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza5Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza5Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza5Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza5Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -273,6 +415,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[5] > 0)
                     {
                         order.Pizza6Id = order.PizzaId[5];
+
+                        if (order.Pizza6Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza6Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza6Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza6Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza6Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza6Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -282,6 +449,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[6] > 0)
                     {
                         order.Pizza7Id = order.PizzaId[6];
+
+                        if (order.Pizza7Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza7Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza7Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza7Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza7Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza7Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -291,6 +483,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[7] > 0)
                     {
                         order.Pizza8Id = order.PizzaId[7];
+
+                        if (order.Pizza8Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza8Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza8Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza8Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza8Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza8Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -300,6 +517,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[8] > 0)
                     {
                         order.Pizza9Id = order.PizzaId[8];
+
+                        if (order.Pizza9Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza9Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza9Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza9Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza9Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza9Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -309,6 +551,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[9] > 0)
                     {
                         order.Pizza10Id = order.PizzaId[9];
+
+                        if (order.Pizza10Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza10Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza10Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza10Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza10Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza10Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -318,6 +585,31 @@ namespace WebApp.Controllers
                     if (order.PizzaId[10] > 0)
                     {
                         order.Pizza11Id = order.PizzaId[10];
+
+                        if (order.Pizza11Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza11Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza11Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza11Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza11Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza11Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
@@ -327,17 +619,101 @@ namespace WebApp.Controllers
                     if (order.PizzaId[11] > 0)
                     {
                         order.Pizza12Id = order.PizzaId[11];
+
+                        if (order.Pizza12Id == 1)
+                        {
+                            invDec.Add(order.CheeseInv);
+                        }
+                        else if (order.Pizza12Id == 2)
+                        {
+                            invDec.Add(order.PepperoniInv);
+                        }
+                        else if (order.Pizza12Id == 3)
+                        {
+                            invDec.Add(order.MeatLoversInv);
+                        }
+                        else if (order.Pizza12Id == 4)
+                        {
+                            invDec.Add(order.VeggieInv);
+                        }
+                        else if (order.Pizza12Id == 5)
+                        {
+                            invDec.Add(order.HawaiianInv);
+                        }
+                        else if (order.Pizza12Id == 6)
+                        {
+                            invDec.Add(order.GoldenSunInv);
+                        }
                     }
                 }
                 catch { }
 
-                Repo.AddOrder(order);
-                Repo.Save();
+                //add up all inventory to one array
+                int[] invTotal = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                foreach(int[] item in invDec)
+                {
+                    int len = item.Length;
+                    for(int i=0;i<len;i++)
+                    {
+                        invTotal[i] += item[i];
+                    }
+                }
+
+                //remove invTotal from locInv (inventory management). If below 0, reject order.
+                int leng = invTotal.Length;
+                for(int i=0; i<leng; i++)
+                {
+                    locationInv[i] -= invTotal[i];
+                }
+
+                bool invCheck = true;
+                foreach(int item in locationInv)
+                {
+                    if (item < 0)
+                    {
+                        invCheck = false;
+                    }
+                }
+
+                if (invCheck == true)
+                {
+                    //submit inventory to DB
+                    int iterator = 0;
+                    foreach (var item in LocInv)
+                    {
+                        
+                        item.Quantity = locationInv[iterator];
+                        iterator++;
+                    }
+                    try
+                    {
+                        foreach (var item in LocInv)
+                        {
+                            Repo.UpdateInventory(item);
+                        }
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("", "Unable to update inventory.");
+                    }
+                   
+
+                    //submit order to DB
+                    Repo.AddOrder(order);
+                    Repo.Save();
+                    return RedirectToAction("OrderConfirmation", "Order", new { dateTime = order.Dt });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Unable to submit order. Insufficient inventory.");
+                    return RedirectToAction("StartOrder", "Order");
+                }
+                
 
 
 
 
-                return RedirectToAction("OrderConfirmation", "Order", new {dateTime = order.Dt});
+                
             }
             
             catch
