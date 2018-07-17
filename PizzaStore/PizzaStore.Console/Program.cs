@@ -293,7 +293,7 @@ namespace PizzaStore.Console
                                     order.DisplayOrder(dbContext, order);
                                     try
                                     {
-                                        dbContext.OrderHistory.Add(OrderRepository.ObjToDBContext(order));
+                                        //dbContext.OrderHistory.Add(OrderRepository.ObjToDBContext(order));
                                         dbContext.SaveChanges();
                                         break;
                                     }
@@ -317,7 +317,7 @@ namespace PizzaStore.Console
                 }
                 else if (input == "3")
                 {
-                    CustomerRepository.DisplayOrderHistory(dbContext, customer);
+                    //CustomerRepository.DisplayOrderHistory(dbContext, customer);
                 }
                 else if (input == "4")
                 {

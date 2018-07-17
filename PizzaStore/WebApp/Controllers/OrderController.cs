@@ -170,13 +170,6 @@ namespace WebApp.Controllers
             return View(order);
         }
 
-        // GET: Order/Create
-        public ActionResult Create()
-        {
-            OrderWeb order = new OrderWeb();
-            return View(order);
-        }
-
         // POST: Order/StartOrder
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -185,9 +178,7 @@ namespace WebApp.Controllers
             try
             {
                 TempData["PizzaCount"] = order.PizzaCount;
-                TempData["LocationID"] = order.LocationId;
-                
-                return RedirectToAction("Create", "Order");
+                return RedirectToAction("Create", "Order", new { locId = order.LocationId, pizzaCt = order.PizzaCount });
             }
 
             catch
@@ -196,22 +187,37 @@ namespace WebApp.Controllers
             }
         }
 
+        // GET: Order/Create
+        public ActionResult Create(int locId, int pizzaCt)
+        {
+            OrderWeb getOrder = new OrderWeb
+            {
+                LocationId = locId,
+                PizzaCount = pizzaCt
+            };
+
+            return View(getOrder);
+        }
+
         // POST: Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(OrderWeb order)
+        public ActionResult Create([Bind("LocationId,PizzaCount")] OrderWeb getOrder) 
         {
             try
             {
-                order.LocationId = (int)TempData.Peek("LocationID");
-                order.PizzaCount = (int)TempData.Peek("PizzaCount");
+                //order.LocationId = (int)TempData.Peek("LocationID");
+                //order.PizzaCount = (int)TempData.Peek("PizzaCount");
+                OrderWeb order = new OrderWeb();
+                order.LocationId = getOrder.LocationId;
+                order.PizzaCount = getOrder.PizzaCount;
                 order.CustomerId = (int)TempData.Peek("CustomerId");
                 order.Dt = DateTime.Now;
                 order.Total = 0;
 
                 //kick customer back to StarOrder if they placed an order at this location in the last 2 hours
-                var orderList = Repo.GetOrderHistoryByCustomerId((int)TempData.Peek("CustomerId"));
-                List<OrderWeb> orderHistory = Repo.GetOrderHistoryByLocationId((int)TempData.Peek("LocationID"), orderList);
+                var orderList = Repo.GetOrderHistoryByCustomerId(order.CustomerId);
+                List<OrderWeb> orderHistory = Repo.GetOrderHistoryByLocationId(order.LocationId, orderList);
                 //custLocOrderHist is the order history of a specific customer at a specific location sorted from newest to oldest
                 IEnumerable<OrderWeb> custLocOrderHist = orderHistory.OrderByDescending(x => x.Dt);
                 OrderWeb newest = custLocOrderHist.First();
@@ -738,7 +744,7 @@ namespace WebApp.Controllers
             
             catch
             {
-                return View();
+                return View(getOrder);
             }
         }
 
