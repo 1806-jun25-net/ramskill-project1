@@ -8,7 +8,7 @@ namespace PizzaStore.Library.Models
 {
     public class LocationRepository
     {
-        private PizzaStoreDBContext _db;
+        private readonly PizzaStoreDBContext _db;
 
         public LocationRepository(PizzaStoreDBContext db)
         {

@@ -46,35 +46,6 @@ namespace PizzaStore.Library.Models
             Console.WriteLine("4. Veggie");
             Console.WriteLine("5. Hawaiian");
             Console.WriteLine("6. Golden Sun");
-
-            //purpose of below code is to try and dynamically print the ID numbers of pizzas
-            //and the name of the corresponding pizza. It currently fails to match them up
-            //when printing to the console
-
-            //using (dbContext)
-            //{
-            //    var pizzaNameTemp = dbContext.Pizza.Select(m => m.Name).Distinct().ToArray();
-            //    var pizzaId = dbContext.Pizza.Select(m => m.Id).Distinct().ToArray();
-            //    var pizzaName = new string[pizzaId.Length];
-                
-            //    for(int i = 0; i < pizzaId.Length; i++) 
-            //    {
-            //        //dbContext.Customer.First(u => u.UserName == userName && u.Password == password).ToString();
-            //        var temp = dbContext.Pizza.Find(pizzaNameTemp[i]).ToString();
-                    
-            //    }
-            //    Console.ReadLine();
-                
-                
-
-            //    int iterator = 0;
-            //    foreach (var item in pizzaName)
-            //    {
-
-            //        System.Console.WriteLine($"{pizzaId[iterator]}. {pizzaName[iterator]}");
-            //        iterator++;
-            //    }
-            //}
         }
 
         public static string GetSize()

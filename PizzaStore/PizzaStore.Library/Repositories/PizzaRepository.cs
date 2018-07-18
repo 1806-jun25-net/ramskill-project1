@@ -6,7 +6,7 @@ using PizzaStore.Library.Models;
 
 namespace PizzaStore.Library.Repositories
 {
-    public class PizzaRepository
+    public static class PizzaRepository
     {
         public static Models.Pizza DBContextToObj(Data.Pizza pizza) => new Models.Pizza
         {

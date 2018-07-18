@@ -7,7 +7,7 @@ namespace PizzaStore.Library.Repositories
 {
     public class PizzaStoreRepository
     {
-        private PizzaStoreDBContext _db;
+        private readonly PizzaStoreDBContext _db;
 
         public PizzaStoreRepository(PizzaStoreDBContext db)
         {

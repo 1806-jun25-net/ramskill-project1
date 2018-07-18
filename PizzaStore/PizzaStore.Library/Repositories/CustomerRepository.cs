@@ -19,14 +19,11 @@ namespace PizzaStore.Library.Models
         public int favoriteLocationId;
         public int admin;
 
-        private PizzaStoreDBContext _db;
-
-        public CustomerRepository(string firstName, string lastName, string ID)
-        {
-        }
+        private readonly PizzaStoreDBContext _db;
 
         public CustomerRepository(PizzaStoreDBContext db)
         {
+
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
@@ -36,10 +33,10 @@ namespace PizzaStore.Library.Models
 
         public CustomerRepository NewUser(PizzaStoreDBContext dbContext)
         {
-            string userName;
-            string password;
-            string firstName;
-            string lastName;
+            string customerName;
+            string pass;
+            string customerFirst;
+            string customerLast;
 
             while (true)
             {
@@ -47,50 +44,50 @@ namespace PizzaStore.Library.Models
                 do
                 {
                     Console.WriteLine("Please enter your first name:");
-                    firstName = Console.ReadLine();
-                    if (firstName.Length == 0)
+                    customerFirst = Console.ReadLine();
+                    if (customerFirst.Length == 0)
                     {
                         Console.WriteLine("Name cannot be empty.");
                     }
-                    else if (!firstName.All(Char.IsLetter))
+                    else if (!customerFirst.All(Char.IsLetter))
                     {
                         Console.WriteLine("Name can only have alphabetical letters.");
                     }
-                } while (firstName.Length == 0 || !firstName.All(Char.IsLetter));
+                } while (customerFirst.Length == 0 || !customerFirst.All(Char.IsLetter));
 
                 //get last name from user (optional)
                 do
                 {
                     Console.WriteLine("Please enter your last name (optional):");
-                    lastName = Console.ReadLine();
-                    if (!lastName.All(Char.IsLetter))
+                    customerLast = Console.ReadLine();
+                    if (!customerLast.All(Char.IsLetter))
                     {
                         Console.WriteLine("Name can only have alphabetical letters.");
                     }
-                } while (lastName.Length != 0 && !lastName.All(Char.IsLetter));
+                } while (customerLast.Length != 0 && !customerLast.All(Char.IsLetter));
 
                 //get userName from user
                 do
                 {
                     Console.WriteLine("Please enter your desired username:");
-                    userName = Console.ReadLine();
-                    if (userName.Length == 0)
+                    customerName = Console.ReadLine();
+                    if (customerName.Length == 0)
                     {
                         Console.WriteLine("Username cannot be empty.");
                     }
-                } while (userName.Length == 0);
+                } while (customerName.Length == 0);
 
                 //get password from user
                 do
                 {
                     Console.WriteLine("Please enter your desired password:");
-                    password = Console.ReadLine();
-                    if (password.Length == 0)
+                    pass = Console.ReadLine();
+                    if (pass.Length == 0)
                     {
                         Console.WriteLine("Password cannot be empty.");
                     }
-                } while (password.Length == 0);
-                Customer customer = new Customer(firstName, lastName, userName, password);
+                } while (pass.Length == 0);
+                Customer customer = new Customer(customerFirst, customerLast, customerName, pass);
 
                 try
                 {
@@ -104,13 +101,13 @@ namespace PizzaStore.Library.Models
                 }
             }
 
-            CustomerRepository customerInfo = CustomerRepository.DBContextToObj(dbContext.Customer.First(u => u.UserName == userName && u.Password == password));
+            CustomerRepository customerInfo = CustomerRepository.DBContextToObj(dbContext.Customer.First(u => u.UserName == customerName && u.Password == pass));
             return customerInfo;
         }
         public CustomerRepository SignIn(PizzaStoreDBContext dbContext)
         {
-            string userName;
-            string password;
+            string customerName;
+            string pass;
             
             
             while(true)
@@ -118,28 +115,30 @@ namespace PizzaStore.Library.Models
                 do
                 {
                     Console.WriteLine("Please enter your username:");
-                    userName = Console.ReadLine();
-                    if (userName.Length == 0)
+                    customerName = Console.ReadLine();
+                    if (customerName.Length == 0)
                     {
                         Console.WriteLine("Username cannot be empty.");
                     }
-                } while (userName.Length == 0);
+                } while (customerName.Length == 0);
 
                 do
                 {
                     Console.WriteLine("Please enter your password:");
-                    password = Console.ReadLine();
-                    if (password.Length == 0)
+                    pass = Console.ReadLine();
+                    if (pass.Length == 0)
                     {
                         Console.WriteLine("Password cannot be empty.");
                     }
-                } while (password.Length == 0);
+                } while (pass.Length == 0);
                 
                 
                 try
                 {
-                    var customer = dbContext.Customer.First(u => u.UserName == userName && u.Password == password).ToString();
-                    break;
+                    if(dbContext.Customer.First(u => u.UserName == customerName && u.Password == pass) != null)
+                    {
+                        break;
+                    }
                 }
                 catch
                 {
@@ -148,25 +147,10 @@ namespace PizzaStore.Library.Models
 
             }
 
-            Customer customerInfo = dbContext.Customer.First(u => u.UserName == userName && u.Password == password);
+            Customer customerInfo = dbContext.Customer.First(u => u.UserName == customerName && u.Password == pass);
             CustomerRepository customerObj = DBContextToObj(customerInfo);
             return customerObj;
         }
-
-        //public static void DisplayOrderHistory(PizzaStoreDBContext dbContext, CustomerRepository customer)
-        //{
-        //    using (dbContext)
-        //    {
-        //        foreach (var item in dbContext.OrderHistory)
-        //        {
-        //            if(item.CustomerId == customer.id)
-        //            {
-        //                Order order = OrderRepository.DBContextToObject(item);
-        //                order.DisplayOrder(dbContext, order);
-        //            }
-        //        }
-        //    }
-        //}
 
         public void UpdateFavoriteLocation(CustomerRepository customer, int newLocationId,PizzaStoreDBContext dbContext)
         {
@@ -197,10 +181,5 @@ namespace PizzaStore.Library.Models
             password = customer.Password,
             favoriteLocationId = customer.FavoriteLocationId.GetValueOrDefault(),
         };
-
-
-
-
-
     }//end class
 }
