@@ -9,10 +9,10 @@ namespace PizzaStore.Library.Models
     public class Pizza
     {
 
-        public int id;
-        public string size;
-        public string name;
-        public decimal cost;
+        public int id { get; set; }
+        public string size { get; set; }
+        public string name { get; set; }
+        public decimal cost { get; set; }
 
         public static int PickPizza(PizzaStoreDBContext dbContext)
         {
@@ -51,7 +51,7 @@ namespace PizzaStore.Library.Models
         public static string GetSize()
         {
 
-            string size;
+            string pSize;
             while (true)
             {
                 Console.WriteLine("What size?");
@@ -62,17 +62,17 @@ namespace PizzaStore.Library.Models
                 string input = Console.ReadLine().ToLower();
                 if(input == "s")
                 {
-                    size = "SM";
+                    pSize = "SM";
                     break;
                 }
                 else if(input == "m")
                 {
-                    size = "MD";
+                    pSize = "MD";
                     break;
                 }
                 else if(input == "l")
                 {
-                    size = "LG";
+                    pSize = "LG";
                     break;
                 }
                 else
@@ -81,7 +81,7 @@ namespace PizzaStore.Library.Models
                 }
             }
 
-            return size;
+            return pSize;
         }
         
     }
